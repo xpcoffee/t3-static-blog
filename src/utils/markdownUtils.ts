@@ -20,14 +20,16 @@ export function getMarkdownContent(basePath: string) {
   return markdownContent;
 }
 
-type FrontMatter = {
+export type FrontMatter = {
   slug: string;
   title: string;
+  description: string;
 };
 
 function toFrontMatter(data: Record<string, any>): FrontMatter {
   return {
     slug: data["slug"] ?? "unkown-article",
     title: data["title"] ?? "unkown article",
+    description: data["description"] ?? "unkown description",
   };
 }
