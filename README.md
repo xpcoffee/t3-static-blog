@@ -4,7 +4,7 @@ Testing out building a static blog using NextJS. Don't use this as a reference; 
 
 Notes (most recent at the top)
 
-- Currenlty need to read markdown content twice: 1 for static props and 1 to render the page (not great..)
+- Currently need to read markdown content twice: 1 for static props and 1 to render the page (not great..)
 - Started with T3 to get sane defaults, but I don't need the full-stack stuff (need typescript + tailwind)
 - NextJS seems like the main tool at the moment that can do static rendering
 - I want to move off of GatsbyJS for my personal website
