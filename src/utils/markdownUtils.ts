@@ -11,13 +11,31 @@ export function getMarkdownContent(basePath: string) {
 
   const markdownContent = markdownFiles.map((fileName) => {
     const contents = fs.readFileSync(path.join(basePath, fileName), "utf8");
-    const frontMatter = toFrontMatter(matter(contents).data);
+    const matterResult = matter(contents);
+    const frontMatter = toFrontMatter(fileName, matterResult.data);
     return {
       frontMatter,
+      content: matterResult.content,
     };
   });
 
   return markdownContent;
+}
+
+const fileNameFromSlug = (slug: string): string => {
+  return `${slug}.md`;
+};
+
+export function getMarkdownContentForSlug(basePath: string, slug: string) {
+  const fileName = fileNameFromSlug(slug);
+  const contents = fs.readFileSync(path.join(basePath, fileName), "utf8");
+  const matterResult = matter(contents);
+  const frontMatter = toFrontMatter(fileName, matterResult.data);
+
+  return {
+    frontMatter,
+    content: matterResult.content,
+  };
 }
 
 export type FrontMatter = {
@@ -26,9 +44,14 @@ export type FrontMatter = {
   description: string;
 };
 
-function toFrontMatter(data: Record<string, any>): FrontMatter {
+function toFrontMatter(
+  fileName: string,
+  data: Record<string, any>,
+): FrontMatter {
+  console.log("filename:" + JSON.stringify(fileName));
+
   return {
-    slug: data["slug"] ?? "unkown-article",
+    slug: fileName.replace(".md", ""),
     title: data["title"] ?? "unkown article",
     description: data["description"] ?? "unkown description",
   };
