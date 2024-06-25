@@ -3,8 +3,12 @@
  * for Docker builds.
  */
 await import("./src/env.js");
+import mdx from "@next/mdx";
+const withMDX = mdx();
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+};
 
-export default config;
+export default withMDX(config);
