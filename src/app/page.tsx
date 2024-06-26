@@ -1,6 +1,6 @@
 import { getMarkdownMetadata } from "~/utils/markdownUtils";
-import { ArticleListItem } from "./components/articleListItem";
-import { Layout } from "./components/layout";
+import { ArticleListItem } from "./components/ArticleListItem";
+import { Layout } from "./components/Layout";
 
 export default async function Home() {
   const articleListItems = getMarkdownMetadata().map((metadata) => {

@@ -2,10 +2,10 @@
 
 import React from "react";
 import { ToolPanel } from "./ToolPanel";
-import { SocialInfo } from "./socialInfo";
-import { AboutLink } from "./aboutLink";
-import { EmojiLogo } from "./emojiLogo";
-import { ThisIsMySite } from "./tagLine";
+import { SocialInfo } from "./SocialInfo";
+import { AboutLink } from "./AboutLink";
+import { EmojiLogo } from "./EmojiLogo";
+import { ThisIsMySite } from "./TagLine";
 import { Title } from "./Title";
 
 /**
@@ -14,7 +14,7 @@ import { Title } from "./Title";
  * After the md breakpoint, the grid layout is as follows:
  *
  *         Col1       Col2     Col3     Col4        Col5
- * Row 1 |           | title |       | about me |            |
+ * Row 1 |           | title | logo  | about me |            |
  * Row 2 |           |     horizontal line      |  margin    |
  * Row 2 | toolpanel |         content          |  (unused)  |
  * Row 4 |           | emoji |  tag  |  social  |            |

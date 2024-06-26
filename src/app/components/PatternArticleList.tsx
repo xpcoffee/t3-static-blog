@@ -2,22 +2,6 @@ import React from "react";
 import Link from "next/link";
 
 export const PatternArticleList: React.FC = () => {
-  // const articlesData = useStaticQuery<>(graphql`
-  //   query PatternArticles {
-  //     titles: allMdx(
-  //       filter: { fileAbsolutePath: { regex: "/.*pattern-.*/" } }
-  //       sort: { frontmatter: { title: ASC } }
-  //     ) {
-  //       edges {
-  //         node {
-  //           frontmatter {
-  //             title
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // `);
   const articlesData = {
     titles: {
       edges: [
