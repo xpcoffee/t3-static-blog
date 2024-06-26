@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from "react"
-import { getIcon } from "../utils/fontAwesome"
-import { Link } from "gatsby"
+import React, { useState } from "react";
+import { getIcon } from "~/utils/fontAwesome";
+import Link from "next/link";
 
 export const ToolPanel = ({
   children,
   className,
 }: React.PropsWithChildren<{ className?: string }>) => {
-  const [showPanel, setShowPanel] = useState(false)
+  const [showPanel, setShowPanel] = useState(false);
 
   const onclick = () => {
-    setShowPanel(previousValue => {
+    setShowPanel((previousValue) => {
       console.log({
         showPanel,
         previousValue,
         returnValue: !previousValue,
-      })
-      return !previousValue
-    })
-  }
+      });
+      return !previousValue;
+    });
+  };
 
   if (!children) {
-    return <></>
+    return <></>;
   }
 
   return (
     <div
       className={
         className +
-        " bottom-0 z-20 fixed flex flex-col justify-end max-h-full w-full drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]" +
-        " md:panel-width md:min-w-40 md:h-fit md:drop-shadow-none" +
-        " md:sticky md:block md:top-0 md:justify-start"
+        " fixed bottom-0 z-20 flex max-h-full w-full flex-col justify-end drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]" +
+        " md:panel-width md:h-fit md:min-w-40 md:drop-shadow-none" +
+        " md:sticky md:top-0 md:block md:justify-start"
       }
     >
       <div
@@ -45,24 +45,24 @@ export const ToolPanel = ({
       </div>
       <div
         className={
-          "flex justify-center items-center" +
-          " bg-gray-50 dark:text-gray-300 dark:bg-gray-700 hover:text-orange-400 visited:hover:text-orange-400 visited:text-gray-300" +
+          "flex items-center justify-center" +
+          " bg-gray-50 visited:text-gray-300 hover:text-orange-400 visited:hover:text-orange-400 dark:bg-gray-700 dark:text-gray-300" +
           " text-center text-lg" +
           " rounded-t-xlg h-16" +
           " block md:hidden"
         }
       >
         <Link
-          to="/"
+          href="/"
           className={
-            "w-full max-w-[30%] h-full flex items-center justify-center visited:text-gray-300"
+            "flex h-full w-full max-w-[30%] items-center justify-center visited:text-gray-300"
           }
           aria-label="Home"
         >
           {getIcon("faHome")}
         </Link>
         <button
-          className={"w-full max-w-[30%] h-full visited:text-gray-300"}
+          className={"h-full w-full max-w-[30%] visited:text-gray-300"}
           onClick={onclick}
           aria-label={showPanel ? "Close contents" : "Contents"}
         >
@@ -70,5 +70,5 @@ export const ToolPanel = ({
         </button>
       </div>
     </div>
-  )
-}
+  );
+};

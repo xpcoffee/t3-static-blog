@@ -1,3 +1,109 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+a {
+  @apply text-indigo-800 visited:text-purple-700 hover:text-indigo-800 dark:text-orange-300 visited:dark:text-orange-300 hover:dark:text-indigo-300;
+}
+
+p {
+  @apply mb-2;
+}
+
+.quicksand {
+  font-family: "Quicksand";
+}
+
+h1 {
+  @apply quicksand mb-2 mt-8 text-3xl dark:text-gray-300;
+}
+
+.title {
+  @apply mt-1;
+}
+
+h2 {
+  @apply quicksand mb-2 mt-8 w-full border border-dashed border-transparent border-b-gray-700 pb-1 text-2xl text-gray-700 dark:border-b-gray-300 dark:text-gray-300;
+}
+
+h3 {
+  @apply quicksand mb-4 mt-8 text-xl font-bold text-gray-700 dark:text-gray-300;
+}
+
+h4 {
+  @apply mb-2 mt-6 text-xl text-gray-700 dark:text-gray-300;
+}
+
+pre {
+  @apply rounded-xl;
+}
+
+html {
+  height: 100dvh;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100dvh;
+  @apply text-gray-800 dark:bg-slate-900 dark:text-gray-400;
+}
+
+#___gatsby,
+#gatsby-focus-wrapper,
+#app-layout {
+  height: 100dvh;
+}
+
+ol {
+  @apply mb-3 ml-6 mt-2 list-decimal;
+}
+
+ul {
+  @apply mb-3 ml-6 mt-2 list-disc;
+}
+
+table {
+  @apply mb-3 dark:bg-slate-700;
+}
+
+td,
+th {
+  @apply border border-gray-300 p-2 text-gray-700 dark:text-gray-300;
+}
+
+img {
+  @apply rounded-lg;
+}
+
+figure {
+  @apply my-8;
+}
+
+figcaption {
+  @apply my-4 text-center text-sm italic;
+}
+
+details summary > * {
+  display: inline;
+}
+
+@media (min-width: 768px) {
+  .md\:grid-desktop {
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 1fr 300px auto 300px 1fr;
+  }
+
+  /* Remove scrollbar jitter*/
+  html {
+    margin-left: calc(100vw - 100%);
+    margin-right: 0;
+  }
+}
+
+.read-width {
+  max-width: 900px;
+}
+
+.panel-width {
+  min-width: 300px;
+}

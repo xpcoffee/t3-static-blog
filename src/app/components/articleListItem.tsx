@@ -7,7 +7,7 @@ interface Props {
   title?: string;
   description?: string;
   faIconName?: string;
-  lastEdit?: string;
+  lastEdit?: Date;
 }
 
 const ArticleListItem = ({
@@ -27,7 +27,7 @@ const ArticleListItem = ({
 
   const lastEditSubtext = lastEdit ? (
     <span className="text-sm text-gray-600 dark:text-gray-400">
-      Last edit: {lastEdit}
+      Last edit: {`${lastEdit}`}
     </span>
   ) : undefined;
 

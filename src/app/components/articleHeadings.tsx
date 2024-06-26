@@ -1,6 +1,6 @@
 import React, { FC, PropsWithChildren } from "react";
 import { HeadingData, renderHeadings } from "~/utils/headings";
-import { ArticleHeading } from "../../components/mdx/articleHeading";
+import { ArticleHeading } from "./articleHeading";
 
 type Props = PropsWithChildren<{ headings: HeadingData[]; depth?: number }>;
 

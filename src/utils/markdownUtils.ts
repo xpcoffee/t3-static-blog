@@ -42,14 +42,20 @@ export function getMarkdownContentForSlug(slug: string) {
 }
 
 export type FrontMatter = {
+  id: string;
   title: string;
   description: string;
+  faIcon: string;
+  lastEdit: string;
 };
 
 function toFrontMatter(data: Record<string, any>): FrontMatter {
   return {
-    title: data["title"] ?? "unkown article",
-    description: data["description"] ?? "unkown description",
+    id: data["id"] ?? "404-id-not-found",
+    title: data["title"] ?? "unknown article",
+    description: data["description"] ?? "unknown description",
+    faIcon: data["faIcon"] ?? "faHome",
+    lastEdit: data["lastEdit"] ?? "unknown description",
   };
 }
 

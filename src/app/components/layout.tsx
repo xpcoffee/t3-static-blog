@@ -1,7 +1,9 @@
+"use client";
+
 import React from "react";
-import { ToolPanel } from "../../components/mdx/toolPanel";
-import { SocialInfo } from "../../components/mdx/socialInfo";
-import { AboutLink } from "../../components/mdx/aboutLink";
+import { ToolPanel } from "./ToolPanel";
+import { SocialInfo } from "./socialInfo";
+import { AboutLink } from "./aboutLink";
 import { EmojiLogo } from "./emojiLogo";
 import { ThisIsMySite } from "./tagLine";
 import { Title } from "./title";

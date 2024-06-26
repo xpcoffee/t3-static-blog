@@ -1,18 +1,38 @@
 import { getMarkdownMetadata } from "~/utils/markdownUtils";
-import { PostCard } from "./components/PostCard";
+import { ArticleListItem } from "./components/articleListItem";
+import { Layout } from "./components/layout";
 
 export default async function Home() {
-  const markdownMetadata = getMarkdownMetadata();
+  const articleListItems = getMarkdownMetadata().map((metadata) => {
+    return (
+      <ArticleListItem
+        key={metadata.id}
+        articlePath={metadata.slug ?? "404"}
+        title={metadata.title}
+        description={metadata.description}
+        faIconName={metadata?.faIcon}
+        lastEdit={metadata?.lastEdit}
+      />
+    );
+  });
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <h1>Home</h1>
-
-      <ul>
-        {markdownMetadata.map((articleMetadata, index) => (
-          <PostCard key={index} {...articleMetadata} />
-        ))}
+    <Layout>
+      {/* <Seo title="Home" /> */}
+      <p id="article-list-label">
+        {"A collection of "}
+        <a href="https://en.wikipedia.org/wiki/Living_document" target="blank">
+          living
+        </a>
+        {" notes and thoughts."}
+      </p>
+      <ul
+        aria-labelledby="article-list-label"
+        tabIndex={0}
+        className="ml-0 mt-3 list-none"
+      >
+        {articleListItems}
       </ul>
-    </main>
+    </Layout>
   );
 }
