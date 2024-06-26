@@ -4,6 +4,7 @@ import {
 } from "~/utils/markdownUtils";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Card from "~/app/components/Card";
+import { Layout } from "~/app/components/Layout";
 
 type Props = {
   // there has to be a more sane way of typechecking static params.....
@@ -15,10 +16,12 @@ export default ({ params }: Props) => {
   const article = getMarkdownContentForSlug(slug);
 
   return (
-    <article className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <h1>{article.frontMatter.title}</h1>
-      <MDXRemote source={article.content} components={components} />
-    </article>
+    <Layout>
+      <article>
+        <h1>{article.frontMatter.title}</h1>
+        <MDXRemote source={article.content} components={components} />
+      </article>
+    </Layout>
   );
 };
 
@@ -26,6 +29,7 @@ export default ({ params }: Props) => {
  * Tells nextjs which slugs should be rendered statically.
  */
 export const generateStaticParams = async () => {
+  console.log(getMarkdownContentSlugs());
   return getMarkdownContentSlugs().map((slug) => ({ slug }));
 };
 
