@@ -1,0 +1,108 @@
+---
+title: Musical modes
+description: A reference sheet for the 7 musical modes.
+date: 2020-02-16
+lastEdit: 2024-06-09
+faIcon: faMusic
+guid: a76811d3-4eb8-438c-9fae-e9c657e59505
+---
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"
+import { ModalScale } from "../components"
+
+<script
+  src="https://kit.fontawesome.com/e7cef4976f.js"
+  crossorigin="anonymous"
+></script>
+
+A reference sheet for the 7 musical modes.
+
+<div className="mb-8"></div>
+
+## Interactive scales
+
+This is a quick tool for finding notes of a specific scale. Read on for references around the theory.
+
+<ModalScale />
+
+## Pattern of intervals between notes
+
+T - Tone
+: `s` - semitone
+
+
+| _Mode_  | _Mode name_                 |  1  |  2  |  3  |  4  |  5  |  6  |  7  |
+| ------- | --------------------------- | --- | --- | --- | --- | --- | --- | --- |
+| **I**   | **Ionian (major)**          |  T  |  T  | `s` |  T  |  T  |  T  | `s` |
+| **II**  | **Dorian**                  |  T  | `s` |  T  |  T  |  T  | `s` |  T  |
+| **III** | **Phrygian**                | `s` |  T  |  T  |  T  | `s` |  T  |  T  |
+| **IV**  | **Lydian**                  |  T  |  T  |  T  | `s` |  T  |  T  | `s` |
+| **V**   | **Myxolydian**              |  T  |  T  | `s` |  T  |  T  | `s` |  T  |
+| **VI**  | **Aeolian (natural minor)** |  T  | `s` |  T  |  T  | `s` |  T  |  T  |
+| **VII** | **Locrian**                 | `s` |  T  |  T  | `s` |  T  |  T  |  T  |
+
+Starting with the major scale (the Ionian), we find out the difference between each scale degree. That gives a pattern of tones and semitones.
+By "shifting" the order of the pattern, we end up with other scales. These scales are called **modes**. Each mode has a different feel/flavour to it, from happy (Ionian), to sad (Ionian), to exotic (Phrygian), to dissonant (Locrian).
+
+**Example** We get the Phrygian mode/scale by shifting the pattern of the Ionan up by 2.
+
+````````````
+[Ionian]      Tone , Tone | Semitone, Tone, Tone, Tone, Semitone
+                          |
+             |<---shift-<-'
+             |
+[Phrygian]   |Semitone, Tone, Tone, Tone, Semitone, Tone, Tone
+                                                   /```````````
+                             shifted to the back--'
+````````````
+
+<div className="mb-8"></div>
+
+## Intervals
+
+Overview of what intervals are in scale.
+
+<div className="overflow-x-auto">
+
+| _Mode_  | _Mode name_                 |                  tonic                   |                    m2                    |                    M2                    |                    m3                    |                    M3                    |                perfect 4                 |             tritone (#4/♭5)              |                perfect 5                 |                    m6                    |                    M6                    |                    m7                    |                    M7                    |                  octave                  | _shortcut to help remember_ |
+| ------- | --------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | --------------------------- |
+| **I**   | **Ionian (major)**          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |           majors            |
+| **II**  | **Dorian**                  | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |           m3, m7            |
+| **III** | **Phrygian**                | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |           minors            |
+| **IV**  | **Lydian**                  | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |         majors, #4          |
+| **V**   | **Myxolydian**              | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |         majors, m7          |
+| **VI**  | **Aeolian (natural minor)** | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |         minors, M2          |
+| **VII** | **Locrian**                 | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |                                          | <FontAwesomeIcon icon={faCheckCircle} /> |         minors, ♭5          |
+
+</div>
+
+<div className="mb-8"></div>
+
+## Triad patterns
+
+These are the chords you end up with when constructing triads that start at each scale degree and use only the notes from the scale.
+
+M - major triad
+: m - minor triad
+: dim - diminished triad
+
+<div className="overflow-x-auto">
+
+| _Mode_  | _Mode name_                 |  1  |  2  |  3  |  4  |  5  |  6  |  7  |
+| ------- | --------------------------- | --- | --- | --- | --- | --- | --- | --- |
+| **I**   | **Ionian (major)**          |  M  |  m  |  m  |  M  |  M  |  m  | dim |
+| **II**  | **Dorian**                  |  m  |  m  |  M  |  M  |  m  | dim |  M  |
+| **III** | **Phrygian**                |  m  |  M  |  M  |  m  | dim |  M  |  m  |
+| **IV**  | **Lydian**                  |  M  |  M  |  m  | dim |  M  |  m  |  m  |
+| **V**   | **Myxolydian**              |  M  |  m  | dim |  M  |  m  |  m  |  M  |
+| **VI**  | **Aeolian (natural minor)** |  m  | dim |  M  |  m  |  m  |  M  |  M  |
+| **VII** | **Locrian**                 | dim |  M  |  m  |  m  |  M  |  M  |  m  |
+
+</div>
+
+Some observations:
+
+- There are 2 consecutive major chords in each mode. Their position w.r.t the root chord (a.k.a the I chord) is a good sign of what mode we're playing in. **e.g.** If your 1 chord is major and you play a major 7 chord, you're in Myxolidian. If your 1 and 2 chords are Major, you're in Lydian.
+- There are 3 major chords, even in minor scales. By focussing on them, it's possible to still play major/"happy" sounding chords, while allowing someone to solo using a minor scale. **e.g.** In Aeolian, you can focus on the 3, 6 and 7 chords, all of which are major, alongside with the minor 1 chord to make a more uplifting chord progression, despite being in the minor key.
+

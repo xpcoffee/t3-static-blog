@@ -1,0 +1,81 @@
+---
+title: Rough notes working with Java
+description: Some loosely organised notes for Java concepts and context which may prove useful to refer to later.
+faIcon: faCoffee
+date: 2022-07-23
+lastEdit: 2022-07-23
+tocDepth: 2
+guid: f5f865c7-82fe-47f9-bc4a-0499a277c46c
+---
+
+import { Card } from "../components"
+
+Some loosely organised notes for Java concepts and context which may prove useful to refer to later.
+
+## Specifications and implementations
+
+The Java ecosystem has many widely-used dependencies that define specifications (specs) without defining an implementation.
+The idea is that you code using the specification. The implementation of the specification is defined in dependencies and loaded at runtime.
+
+### Logging
+
+[Slf4j](https://www.slf4j.org/) (Simple Logging Facade for Java) is a spec for logging.
+
+- [logback](https://logback.qos.ch/) is the default implementation of sl4fj.
+- [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) is logging library that implements Sl4j and provides additional functionality beyond the spec.
+
+### Message protocols
+
+[JAX-RS](https://en.wikipedia.org/wiki/Jakarta_RESTful_Web_Services) is a spec for writing a [REST](https://en.wikipedia.org/wiki/Representational_state_transfer)-ful webservice.
+
+- [Jersey](https://projects.eclipse.org/projects/ee4j.jersey/) is an implementation of the JAX-RS standard.
+- [Apache CXF](https://cxf.apache.org/) is a framework that (amongst other things) has an implementation of the JAX-RS standard.
+
+## Servlets and servlet containers
+
+A core concept in Java webservices is the "Servlet". Conceptually, servlets are objects that extend the functionality of a server.
+e.g. By default, a server doesn't do any logic. We can write a servlet that extends the server so that it runs some business logic for specific requests.
+
+A "servlet container" is the name we give to servers that can be extended by servlets. Examples of servlet containers are [Tomcat](https://tomcat.apache.org/), [Jetty](https://www.eclipse.org/jetty/).
+
+<Card>
+
+_Jetty provides a web server and servlet container, ..._
+
+This translates to:
+
+_Jetty allows you to build a server that can handle web requests; its logic is written in the form of servlets..._
+
+</Card>
+
+## Ecosystem and glossary
+
+Understanding of the Java ecosystem and key terms is important to be able to navigate and search for important topics when developing in Java.
+The terms here are ones that initially confused me, and which I may want to refresh my memory on in the future.
+
+**JRE (Java Runtime Environment) and JDK (Java Development Kit) -** the JRE is the "runtime" program which can execute pre-compiled Java code.
+The JDK is the set of tools and libraries that allow developers to develop, build, test and compile new programs that can run on the JRE.
+
+**Enterprise -** Is a common keyword used to refer to features or capabilities needed by "enterprises".
+Generally this means large-scale systems that need to be worked on by multiple teams or organizations.
+The challenges of the spaces have lead to specifications and tooling that are specialized, standardized and battle-tested.
+The complexity and size of these systems have also given "Enterprise" code an occasional negative connotation synonymous with systems being over-verbose and over-engineered.
+
+**SE (Standard Edition) and EE (Enterprise Edition)** - SE is the core set of Java features.
+EE is the extended set of features commonly used when building enterprise Java applications.
+EE is also called Java Platform.
+
+**Eclipse -** - the name of an [IDE](<https://en.wikipedia.org/wiki/Eclipse_(software)>) that is targetted primarily at Java.
+Also the name of the [the organization](https://en.wikipedia.org/wiki/Eclipse_Foundation) that that maintains the IDE, and that developed a large amount of tooling for building enterprise Java applications.
+The foundation is extremely active in influencing features in the Java ecosystem.
+
+**Jakarta -** the name of an [open-source organization](https://jakarta.ee/) and a suite of tools for developing enterprise Java applications.
+
+**Oracle JDK-** the [core implementation and tooling of the Java programming](https://www.oracle.com/java/technologies/downloads/). It was the only main implementation for a time.
+Costs of licencing this from Oracle for business use-cases, as well as the rise of open-source alternatives have greatly reduced the control which the company had on the Java ecosystem, but it remains key player.
+
+**OpenJDK -** a popular open-source [JDK](https://openjdk.org/), which serves as an alternative to the Oracle JDK (which, previously, was the standard). There are other JDKs which serve as alternatives but OpenJDK serves as the core for most e.g. [Amazon Corretto](https://aws.amazon.com/corretto/).
+
+**javax -** the namespace/prefix used for widely-used, standardized extensions to the core Java functionality. This is (at the time of writing) changing to the prefix "jakarta" for much of the open-source functionality because [Oracle has a trademark on this namespace](https://eclipse-foundation.blog/2019/05/03/jakarta-ee-java-trademarks/).
+
+![Basic Java term map](./images/basic-java-relationship-map.png)

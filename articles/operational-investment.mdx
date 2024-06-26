@@ -1,0 +1,557 @@
+
+import Card from "~/components/mdx/Card";
+import IconParagraph from "~/components/mdx/IconParagraph";
+
+```
+
+
+---
+title: Operational investment
+description: Paths along which we can evolve our systems to make them easier and more reliable to operate.
+faIcon: faSeedling
+tocDepth: 2
+date: 2022-06-22
+lastEdit: 2022-06-22
+guid: a6892cb6-9010-4091-af51-456414e92059
+---
+
+```
+
+## Problem
+
+We need to build capabilities that enable us to sustainably maintain the health of our systems as our business, customer expectations, and architecture evolves.
+However, it can be difficult to determine where to invest and to prioritize this work against feature work.
+
+It would be useful to have a methodic approach to thinking about operational investments, specifically: where we can invest and what we expect those investments to return.
+
+## Glossary
+
+- **operations** - the work needed to keep a system healthy while doing what _it is currently doing_ at _its current scale_.
+- **scaling** - the work needed to enable the system to perform what _it is currently doing_ at _a larger scale_. For this we think big; 2x,5x,10x, or 100x the current load.
+- **features** - the work needed to _add new capabilities_ to the system.
+- **time-to-detection** - the time between when an issue is introduced and the time when we know about it.
+- **time-to-diagnosis** - the time between when we have detected an issue and the time when we formulate a hypothesis to mitigate it.
+- **time-to-mitigation** - once we know what action to take, this is the time taken to actually mitigate an issue.
+
+In this article we are specifically looking at investments into **operations**.
+
+I added definitions for scalability and features to clarify what operations is _not_.
+Thinking about investing into capabilities for improving scalability and feature delivery require other approaches which are beyond the scope of this article.
+
+<Card heading="Recommended reading">
+
+This article also builds on terms and concepts introduced in <Link href="/articles/operational-observability">operational observability</Link>.
+I recommend that you skim through that article before continuing.
+
+</Card>
+
+## Axes of operational investment
+
+Operating systems is the act of keeping it "healthy". At its core, this means doing 3 things:
+
+1. **Detecting problems** - Investing in improving this reduces time-to-detection.
+1. **Diagnosing problems** - Investing in improving this reduces time-to-diagnosis.
+1. **Mitigating impact** - Investing in improving this reduces time-to-mitigation.
+
+Practically, we also try to detect issues _before_ we ship changes to customers. Improving on this gives us two more axes of investment:
+
+1. **Builder tooling** - Investing in this increases the likelihood that builders will catch issues they introduce before they are merged into the system.
+1. **Pre-production environment** - Investing in this reduces the likelihood of releasing issues to customers. All investments you make to detect, diagnose, and mitigate issues in your production system apply here too and reduce the cost to find and fix issues at this stage.
+1. **Testing infrastructure** - Investing in this reduces time-to-detection for issues that are unfeasible/too expensive to monitor as part of your system.
+
+### Practical operational investment
+
+The axes above are continuous. Conceptually, we could keep investing into "detecting problems" to an extreme where we are alerted of a problem the instant in reaches production.
+Practically, we don't have the time or the budget to invest to the extremes. We need to be able to break up investment into discrete steps, and we need to be able to know when to stop investing.
+
+**Breaking up investments into discrete steps** is something we can do by identifying capabilities.
+We identify something that we want to be able to do as a team e.g. we want to know about all critical errors in our system, and then we design and built that capability into our system e.g. error logging and log-diving.
+Luckily, we can also leverage the experience of others in our industry. The following sections lay out several battle-test capabilities, of varying levels of complexity, that we can choose to implement.
+It's important to note that we will need multiple capabilities across the three axes in order to effectively operate our systems. No single axis or capability is enough on its own.
+
+**When to invest and when to stop investing** into operational capabilities is much like any other investment, and it should heavily depend on our context.
+We will need to spend engineering resources both up-front and over time to maintain these capabilities. So our return on this investment should justify the cost. Some examples of reasoning through investment:
+
+- _"We are consistently delivering on our availability guarantees while delivering new features at the rate we need."_ <br/> Well done! You may not need to investment in any operational capabilities right now. Set a date to re-evaluate this.
+- _"We refunded customers a large amount of money due to an outage that we didn't know about for several hours."_ <br/> Reduce time-to-detection.
+- _"It took us half a day to find the issue before we could resolve it."_ <br/> Reduce time-to-diagnosis.
+- _"It took three teams to roll forward with a fix to production."_ <br/> Improve capabilities for mitigating impact.
+- _"There's no way to easily build a way to test whether a feature is broken within the system, because it depends on a complex customer flow."_ <br/> Add capabilities to testing infrastructure.
+- _"We're spending too much time resolving issues in pre-production."_ <br/> Either improve builder tooling to reduce issues merged, or reduce time-to-mitigation in pre-production .
+
+## Detecting problems in the system
+
+<Card>
+  These are individual capabilities that we can invest in to reduce time to
+  detection. By no means an exhaustive list.
+</Card>
+
+### Health check-up process
+
+<IconParagraph icon="faUserCog" header="Capability">
+  The team can periodically perform checks of the system in production to
+  validate whether it is healthy or not.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefit">
+  Provides a commitment from the team to actively perform issue detection. We
+  become less reliant on our users needing to tell us that our system is broken.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  Manual process. Only tries to make sure that health checks are performed;
+  doesn't improve <em>how</em> health checks are performed.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  Team consensus to implement the process. Alignment on when/how to perform the
+  check-up.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Time from the team to perform check-up. Updates to instructions for checking
+  health as features/architecture change.
+</IconParagraph>
+
+### Health signals + health dashboard
+
+<IconParagraph icon="faUserCog" header="Capability">
+  The team can evaluate a dashboard with health signals to determine system
+  health.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefit">
+  Very low ambiguity about whether the system is unhealthy. Requires
+  little-to-no context to be able to use the dashboard; stakeholders and new
+  hires can also check-up on dashboard.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  Health signals are only as effective as the definitions of health; if we
+  incorrectly define health, we will get incorrect signals. The discoverability
+  of dashboards is important - the team can't inspect dashboards it doesn't know
+  about.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  Work to design/define signals. Work to implement signals in the system. A
+  communication channel where signals can be sent by the system. A
+  dashboard/tool where the team can see the state of signals of the system.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Work to tweak signals as system behaviour mutates with customer load and with
+  architectural changes. Maintenance work on the dashboard tool/communication
+  channels.
+</IconParagraph>
+
+<IconParagraph icon="faLink" header="Further reading">
+  <br />
+  <Link href="/articles/operational-observability">
+    Operational Observability
+  </Link>
+  <br />
+</IconParagraph>
+
+### Automated alerts on health signals
+
+<IconParagraph icon="faUserCog" header="Capability">
+  The team is alerted to unhealthy signals automatically.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefit">
+  Near-real-time notification of issues in the system.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  Automated alerts introduce operational noise due to false alerts. This can be
+  painful initially until we tweak thresholds appropriately.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  A health-monitoring system that knows about states of health signals and that
+  can send a message when an unhealthy signal is detected. A communication
+  channel that informs the team of an alert. A message bus between the
+  health-monitoring system and the team's communication channel.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Work to tweak thresholds for the alarms as system behaviour mutates with
+  customer load and with architectural changes. Maintenance work on the health
+  monitoring system.
+</IconParagraph>
+
+## Diagnosing problems in the system
+
+<Card>
+  These are individual capabilities that we can invest in to reduce time to
+  diagnosis. By no means an exhaustive list.
+</Card>
+
+### Documentation of expected system behaviour
+
+<IconParagraph icon="faUserCog" header="Capability">
+  When an issue is reported, the team can compare actual system behaviour to
+  documented expected system behaviour. The team can use the difference in
+  behaviour to form a hypothesis for mitigation.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefits">
+  Reduces ambiguity around what correct behaviour should look like. Putting
+  context in documentation reduces the reliance tenured members when performing
+  diagnosis.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  Like any documentation this can be prone to becoming out of date quickly if
+  there is no culture of maintaining documentation. Discoverability of this
+  documentation is key; we won't read it if we don't know it exists.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  Knowledge gathering interviews with tenured engineers. Inferring expected
+  behaviour from code. A central documentation system.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Documentation of behaviour whenever a new feature is launched or whenever an
+  existing feature is changed. Maintenance of the documentation system.
+</IconParagraph>
+
+### Error and diagnostic logs
+
+<IconParagraph icon="faUserCog" header="Capability">
+  The team can filter recent logs for critical errors or key events. The log
+  data and origin inform a hypothesis for mitigation.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefit">
+  Near real-time records of system errors. Error messages and log statistics
+  enable hypotheses to be created and validated using data. Historical record of
+  issues, if further investigation is needed in future.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  There is an something of an art to what should be logged. Logging out
+  everything the system does is both expensive to process and store, and noisy
+  to read through. Doing an exercise to explicitly define what is important to
+  log out can be valuable.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  Logging capabilities within the system. Log collection/storage capabilities.
+  Log-diving/searching capabilities. Access control to log data.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Log storage costs. System to prune/compress older logs. Maintenance of log
+  storage and log searching systems.
+</IconParagraph>
+
+### Diagnostic metrics + diagnostic dashboard
+
+<IconParagraph icon="faUserCog" header="Capability">
+  The team can analyse metrics using graphs and statistics on a dashboard to
+  infer current system behaviour.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefit">
+  Visual representation provides summary of system behaviour which is quicker
+  than what logs can provide, and enables analyses of large amounts of system
+  data. Data from metrics can later be fed into more advanced analyses tools to
+  further improve insights on system behaviour.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  Contextual information/documentation about individual metrics is key to an
+  effective diagnostic dashboard. We will likely have dozens of metrics for each
+  major component in our distributed system and it is unrealistic to expect
+  members of the team to remember the specifics of individual metrics. Add
+  context about what each metric measures and where it originates to the
+  dashboards.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  Metric capabilities within the system. Work to implement diagnostic metrics
+  within the system. Metric aggregation and statistical processing system.
+  Dashboarding system. Work to create diagnostic dashboards for the team.
+  Documentation on what different diagnostic metrics mean.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Maintenance of metric aggregation and dashboarding systems. Work to add new
+  metrics for new features and to dashboard and document them.
+</IconParagraph>
+
+<IconParagraph icon="faLink" header="Further reading">
+  <br />
+  <Link href="/articles/operational-observability">
+    Operational Observability
+  </Link>
+  <br />
+  <a href="https://grafana.com/grafana/dashboards/">Grafana dashboards</a>
+  <br />
+  <a href="https://www.datadoghq.com/product/#dashboards">Datadog dashboards</a>
+  <br />
+  <a href="https://prometheus.io/">Prometheus</a>
+</IconParagraph>
+
+### Operational event tracking
+
+<IconParagraph icon="faUserCog" header="Capability">
+  The team is able to track recent major operational events: deployments,
+  rollbacks, incidents, feature releases. That information is used to determine
+  if the issues in our system could be caused by external factors.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefit">
+  Visibility into events that are happening outside of the team's immediate
+  context. Reduces time spent debugging our own system in vain. Also works in
+  reverse: teams that depend on our system can correlate our issues to their
+  failures and save time troubleshooting.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  The effectiveness of this capability is heavily dependent either on having a
+  culture where teams actively publish major events they are performing, or on
+  building between major operational systems and the operational event tracking
+  system e.g. a feature flag system automatically publishing an event.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  Alignment between multiple teams to add notifications of major events to their
+  operational processes. Work to establish and ramp teams up on the protocol to
+  use. Central communications channel for major events.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Work to tweak and redistribute the protocol as needs of teams and systems
+  evolve. Maintenance of the central communications channel.
+</IconParagraph>
+
+### Distributed tracing
+
+<IconParagraph icon="faUserCog" header="Capability">
+  The team is able to track the events for a single request across the
+  distributed system. This provides insight into system behaviour for individual
+  requests.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefit">
+  Explicit knowledge of what happened for a specific request. Greatly reduces
+  the time it takes to know how the system behaved for a given data-point. If
+  paired with a unique identifier for a request, this allows team to investigate
+  specific customer issues with high confidence.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  Gathering traces for individual requests across every component of a
+  distributed system can be technically challenging and expensive. There are
+  industry tools and practices that go some way to mitigating this e.g. tracing
+  only a sample of requests to reduce the amount of data stored. We should do
+  our homework on this before implementing a solution from scratch here.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  Alignment on how to trace a request through the system. Work to add request
+  metadata to logs/metrics to each part of the distributed system. The ability
+  in log diving/tracing system to filter events by a specific request.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Cost of storing extra request metadata. Cost of processing logs/metrics to
+  filter them by a unique request. Work to ensure system events for new features
+  also show up in the request trace.
+</IconParagraph>
+
+<IconParagraph icon="faLink" header="Further reading">
+  <br />
+  <a href="https://newrelic.com/resources/ebooks/quick-introduction-distributed-tracing">
+    new relic: Quick intro to distributed tracing
+  </a>
+  <br />
+  <a href="https://www.jaegertracing.io/">
+    Jaeger: open source, end-to-end distributed tracing
+  </a>
+</IconParagraph>
+
+### User journey tracking
+
+<IconParagraph icon="faUserCog" header="Capability">
+  The team is able to track multiple actions made by a user. This provides
+  insight into user and system behaviour across several requests.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefit">
+  The team can see the full sequence of events around reported issues. The full
+  flow provides valuable additional context to the team for understanding
+  current system behaviour. This greatly improves confidence around forming
+  hypotheses to mitigate the issue.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  There are strong user privacy considerations with this capability. If we want
+  to implement this, we should ensure that we comply with privacy polices and
+  regulations. We should also account for the possibility of having partially
+  complete data e.g. seeing user flows for only a subset of users.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  Alignment on how to track multiple requests through the system. Work to add a
+  session identifier to logs/metrics in each feature of the system. The ability
+  in log diving/tracing system to filter events by a specific session.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Cost of storing extra request metadata. Cost of processing logs/metrics to
+  filter them by a specific session. Work to ensure system events for new
+  features are also registered with sessions.
+</IconParagraph>
+
+<IconParagraph icon="faLink" header="Further reading">
+  <br />
+  <a href="https://support.google.com/analytics/answer/9317498?hl=en">
+    Google Analytics 4: Path exploration
+  </a>
+  <br />
+  <a href="https://www.cisco.com/c/en/us/td/docs/wireless/asr_5000/21-6_N6-0/MME-Admin/21-6-MME-Admin/21-6-MME-Admin_chapter_0101111.pdf">
+    Cisco: Session tracing
+  </a>
+</IconParagraph>
+
+## Mitigating issues in the system
+
+<Card>
+  These are individual capabilities that we can invest in to reduce time to
+  mitigation. By no means an exhaustive list.
+</Card>
+
+### Source versioning
+
+<IconParagraph icon="faUserCog" header="Capability">
+  The team can revert the code in production to a previous version. This
+  mitigates issues introduced in a newly released version of code.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefit">
+  Much faster than re-building the system with a fix and then deploying it out.
+  Very low cognitive overhead or context required to perform a rollback.
+  Different versions of source can be compared side-by-side to confirm
+  differences. Defective versions are available after mitigation for further
+  investigation.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  The source of our system doesn't exist independently. We need to be very
+  careful of restoring specific source versions for stateful systems e.g. if a
+  system is connected to a database, we may cause more impact by reverting to a
+  version of source that expects an older version of the database schema.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  System to version source, though this is now comes standard with most modern
+  systems. System to store different versions of code. System to switch active
+  version used in production.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Storage costs for the different versions of source. Maintenance of systems to
+  store and switch versions.
+</IconParagraph>
+
+### Periodic backups of state + state restoration
+
+<IconParagraph icon="faUserCog" header="Capability">
+  The team can reset the state of the system e.g. a database to a previous
+  snapshot to recover from a situation of data-loss or data-corruption.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefit">
+  You can recover from catastrophic data failure scenarios.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  This doesn't mitigate all data-loss. There is almost always a gap in time
+  between our last backup and the last state of the database. We need to
+  actively test that backup-and-restoration work as expected. Not actively
+  testing makes it likely that this capability will be broken when we actually
+  need it.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  Process to make periodic backups of state. Mechanisms that can capture backups
+  of state. System to store backups of state. Mechanisms that can restore a
+  backup.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Storage costs for previous versions of state. Maintenance of
+  backup-and-restore mechanisms.
+</IconParagraph>
+
+### Feature flags
+
+<IconParagraph icon="faUserCog" header="Capability">
+  The team can turn off the availability of individual features.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefit">
+  Makes it possible to mitigate issues caused by one feature without impacting
+  the rest of the system. Provides quick rollback when releasing new features.
+  Can allow customers to mitigate their own issues if exposed e.g. users can
+  switch a feature on or off based on their preferences and needs.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  Feature flags add conditional branches to our system. This increases the
+  complexity of our system, making it more difficult to develop, test, and
+  troubleshoot. This cost of managing this complexity becomes prohibitively
+  expensive for large numbers of feature flags. If we want to use feature flags,
+  we need active work to keep the amount of flags low.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  Mechanism that enables features to be toggled in the system at runtime.
+  Tooling that enables the team to see and toggle features in the system.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Engineering overhead due to branching complexity of feature flags in the
+  system. Maintenance of feature flag mechanism and tooling.
+</IconParagraph>
+
+### Programmatic rollback
+
+<IconParagraph icon="faUserCog" header="Capability">
+  The team can trigger rollbacks in the system based on programmatic conditions.
+</IconParagraph>
+
+<IconParagraph icon="faUserPlus" header="Benefit">
+  Can automatically roll-back based on health signals when a deployment or
+  feature launch is happening.
+</IconParagraph>
+
+<IconParagraph icon="faUserTimes" header="Caveats">
+  This capability has similar considerations to{" "}
+  <a href="#source-versioning">source versioning</a>; roll-back in a stateful
+  system could cause more harm than good. We need to think these scenarios
+  through carefully. Introducing automation will add operational noise due to
+  rollbacks triggered due to false alarms. The effectiveness of these rollbacks
+  is tied to the accuracy of our rollback triggers.
+</IconParagraph>
+
+<IconParagraph icon="faHandHoldingUsd" header="Upfront costs">
+  API for rollback mechanism. Definition and implementation of programmatic
+  rollback triggers.
+</IconParagraph>
+
+<IconParagraph icon="faFileInvoiceDollar" header="Ongoing costs">
+  Work to tweak to rollback triggers as the system evolves. Maintenance of
+  rollback API and rollback triggers.
+</IconParagraph>
+
+## Conclusion
+
+There are 3 major axes we can invest in to make our systems easier to operate.
+The decision of whether or not to invest should be a cost-benefit analyses that takes our current context and pain-points into account.
+An effective way invest in into these axes is by building targeted operational capabilities into our systems.

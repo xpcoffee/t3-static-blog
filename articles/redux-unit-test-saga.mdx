@@ -1,0 +1,239 @@
+---
+title: Unit testing a redux-saga saga
+description: A method for unit testing a saga.
+date: 2022-01-29
+lastEdit: 2022-01-29
+faIcon: faAtom
+guid: cdc8df96-c20b-48e8-bcab-952fa83cadc2
+---
+
+import Link from "next/link";
+import { Card } from "../components"
+
+[redux-saga](https://redux-saga.js.org/) is Redux middleware that provides functionality for <Link to={"/articles/redux-side-effects"}>executing side-effects in a React-Redux app</Link>.
+While I've found sagas powerful to use, I initially found it difficult to unit-test their logic.
+
+This article is a reference for the best approach I've found so far. I've added an example of this approach to [codesandbox](https://codesandbox.io/s/unit-testing-sagas-75l7n?file=/src/saga.ts); feel free to fork it and play around with it.
+
+We will dive straight into the testing. If you are unfamiliar with redux-saga and function generators I recommend reading up on these topics first.
+Here are some starting points:
+
+- [function generators MDN reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)
+- [redux-saga tutorial](https://redux-saga.js.org/docs/introduction/BeginnerTutorial)
+
+**Example saga**
+
+Let's define a toy saga that we can write some tests around test. It makes two remote calls, selects fields from the results and dispatches that information to the redux store.
+
+```typescript
+// saga.ts
+import { call, put, takeEvery } from "redux-saga/effects"
+import { fetchUser, fetchUserAttributes, UserAttributes } from "./api"
+
+/**
+ * Redux actions
+ */
+export const fetchUserDataAction = { type: "fetchUserData" }
+export const updateUserData = (payload: { name: string } & UserAttributes) => ({
+  type: "fetchUserData",
+  payload,
+})
+
+/**
+ * Defines the business logic of fetching user data
+ */
+export function* fetchUserData() {
+  // fetch data
+  const { id, name } = yield call(fetchUser)
+  const { immunities } = yield call(fetchUserAttributes, id)
+
+  // dispatch synchronous redux action to update app state
+  yield put(updateUserData({ name, immunities }))
+}
+
+/**
+ * Link business logic to a specific redux action
+ */
+export function* fetchUserDataOnAction() {
+  yield takeEvery(fetchUserDataAction.type, fetchUserData)
+}
+```
+
+<div className="mb-5"></div>
+
+## Testing sagas directly
+
+We'll first start by understanding a direct approach to testing sagas.
+It is the main approach that I've found when reading on how to test sagas online.
+
+The concept of this approach is to directly step through saga functionality in your tests.
+To understand what we're doing here, I've found useful is to think about function generators as iterators for steps in a workflow.
+
+```javascript
+function* fetchData() {
+  const step = num => console.log("ran step: " + num)
+  yield step(1)
+  yield step(2)
+  yield step(3)
+}
+
+const iterator = fetchData()
+
+iterator.next()
+// => ran step 1
+iterator.next()
+// => ran step 2
+iterator.next()
+// => ran step 3
+```
+
+We can do something similar in our tests to step through behaviour and run assertions on our sagas.
+
+```typescript
+// direct.test.ts
+import { put } from "redux-saga/effects"
+import { fetchUserData, updateUserData } from "./saga"
+
+describe("fetchUserData", () => {
+  it("calls APIs and updates state", () => {
+    const iterator = fetchUserData()
+
+    const name = "foo"
+    const immunities = "bar"
+
+    // should call /user
+    iterator.next()
+    const mockUserResponse = { id: "1234", name, immunities: undefined }
+
+    // should call /userAttributes
+    iterator.next(mockUserResponse) // pass mock response of previous step back to the saga
+    const mockUserAttributeResponse = {
+      id: undefined,
+      name: undefined,
+      immunities,
+    }
+
+    // should dispatch redux action with results
+    const reduxAction = iterator.next(mockUserAttributeResponse).value
+    expect(reduxAction).toEqual(put(updateUserData({ name, immunities })))
+  })
+})
+```
+
+The main benefit of this approach is that you can running the saga logic "raw" in our tests, with minimal setup.
+
+However, I have had difficulty using this practically in my day-to-day work primarily because we need to know the internals of the saga in order to write the test.
+Specifically, we need to know the order in which the saga will `yield` and to prepare and pass the correct parameters to each call to `next`.
+This makes the test brittle; if we change the order of yields or add new behaviour in the saga without changing its contract, we still need to update our tests.
+
+Another issue I have with this method is that we are invoking the saga differently to how we would in our actually code where we would be dispatching redux actions.
+
+<div className="mb-5"></div>
+
+## Unit testing sagas
+
+<Card heading="Credit where it's due">
+  This expands on an approach I initially found in{" "}
+  <a href="https://medium.com/@13gaurab/unit-testing-sagas-with-jest-29a8bcfca028">
+    an article by Gaurav KC.
+  </a>
+</Card>
+
+Ideally we should test our sagas according to their contract.
+That means dispatching an action and validating that the saga results in the correct side-effects and changes to the store.
+
+To allow this, we need some additional setup that takes away the need of manually invoking the saga and that allows us to dispatch actions.
+Happily, all the needed functionality comes with `redux-saga` in the form of `channel`s and `runSaga`.
+
+- `runSaga` does what its name implies: it handles running a saga you give it.
+- A `channel` recieves and delivers Redux actions and can be passed to `runSaga`.
+- We can also provide a `dispatch` to `runSaga` which it will call when sagas dispatch actions to the store.
+
+<div className="mb-5"></div>
+
+We can tie these three functionalities together in a test utility.
+
+```typescript
+import { Action } from "redux"
+import { Saga, stdChannel, runSaga } from "redux-saga"
+
+export const testRunSaga = <S extends Saga>(
+  saga: S,
+  ...params: Parameters<S>
+) => {
+  // channel to which events can be dispatched
+  const channel = stdChannel()
+
+  // a record of redux actions dispatched from the saga
+  const dispatched: Action[] = []
+  const dispatch = (action: Action) => dispatched.push(action)
+
+  runSaga({ channel, dispatch }, saga, ...params)
+
+  return { channel, dispatched }
+}
+```
+
+<div className="mb-5"></div>
+
+Using this utility, we can write a test that allows us to test a saga as a unit.
+
+```typescript
+// unit.test.ts
+import * as api from "./api"
+import {
+  fetchUserDataAction,
+  fetchUserDataOnAction,
+  updateUserData,
+} from "./saga"
+import { testRunSaga } from "./testUtils"
+
+// test data
+const user: api.User = {
+  name: "foo",
+  id: "1234",
+}
+const userAttributes: api.UserAttributes = {
+  immunities: "bar",
+}
+
+// mock out API integration
+jest.spyOn(api, "fetchUser").mockImplementation(async () => user)
+jest
+  .spyOn(api, "fetchUserAttributes")
+  .mockImplementation(async () => userAttributes)
+
+describe("fetchUserDataOnAction", () => {
+  it("should make expected calls and return data", async () => {
+    const { channel, dispatched } = testRunSaga(fetchUserDataOnAction)
+
+    // unit input: dispatch redux action
+    channel.put(fetchUserDataAction)
+
+    // let async run
+    await new Promise(resolve => setTimeout(resolve))
+
+    // unit output: assert correct resulting action has been dispatched to the store
+    const expectedPutAction = updateUserData({
+      name: user.name,
+      ...userAttributes,
+    })
+    expect(dispatched).toContainEqual(expectedPutAction)
+  })
+})
+```
+
+<div className="mb-5"></div>
+
+I much prefer this method. We invoke the saga using a similar contract to what we'd do in our implementation,
+we don't need to care about the internals of the saga<super>\*</super>,
+and we can make assertions based on its resultant side effects/return values.
+
+In other words, we can now test our saga as a unit. This reduces brittleness, improves readability, and I find it easier to write.
+
+Best of luck with your testing!
+
+<span className="text-sm">
+  <super>*</super> The saga is still performing side-effects, so we do still
+  need to know about and mock out integrations e.g. our API calls.
+</span>

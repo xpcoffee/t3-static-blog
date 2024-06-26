@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { FrontMatter } from "~/utils/markdownUtils";
 
-type Props = { frontMatter: FrontMatter };
+type Props = FrontMatter & { slug: string };
 
-export function PostCard({ frontMatter }: Props) {
-  const { slug, title, description } = frontMatter;
-
+export function PostCard({ slug, title, description }: Props) {
   return (
     <Link href={`/article/${slug}`}>
       <h3>{title}</h3>

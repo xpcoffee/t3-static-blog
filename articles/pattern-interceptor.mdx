@@ -1,0 +1,123 @@
+---
+title: Interceptor
+description: A reference for interceptor pattern.
+faIcon: faShapes
+date: 2021-12-24
+lastEdit: 2021-12-24
+guid: 65752743-7d0b-4ada-abd2-79a8dc1123aa
+---
+
+
+import Link from 'next/link";
+
+**TLDR** An "interceptor" is a <Link href="/articles/patterns">pattern</Link> which enables different operations to act in sequence on the same object.
+
+## Problem/context
+
+There are senarios when we need to run multiple process in series on an object and either make a decision or transform the object.
+In these senarios, the processes may also need to be stateful.
+
+An example of this senario is when handling requests in a webserver:
+we may want to perform authentication, <Link href="/articles/load-shedding-throttling">request-throttling</Link> and authorization in that order for all requests.
+
+## Concept
+
+The core idea is to have a sequence of processes. Each process is defined in a class, allowing state to be kept per-process.
+There is also a class which orchestrates the processes and handles errors/early returns from the sequence.
+
+![](./images/interceptor-sequence.png)
+
+**Key characteristics**
+
+- There is a common interceptor interface which new interceptor classes must implement.
+- There is an orchestrator class which contains the sequence of interceptors and which invokes them in sequence.
+- There are a common set of responses that interceptors can return to allow the sequence to continue or which trigger an early return from the orchetrator.
+
+## Examples
+
+An interceptor chain which processes a web request.
+
+```typescript
+// Note: several class definitions have been left out for brevity
+
+/**
+ * Usage
+ */
+// 1. define interceptors
+const interceptors = [
+    new LoggingInterceptor(),
+    new GlobalThrottlingInterceptor({
+        throttlingPeriodInMillis: 1000
+        throttlingRequestLimit: 5
+    })
+]
+
+// 2. initialize the orchestrator
+const orchestrator = new InterceptorOrchestrator({interceptors})
+
+// 3. proccess requests
+orchestrator.run(new Request())
+
+
+/**
+ * Definitions
+ */
+class InterceptorOrchestrator {
+  private interceptors: Interceptor[];
+
+  constructor({ interceptors }: { interceptors: Interceptor[] }) {
+    this.interceptors = interceptors
+  }
+
+  run(request: Request): AppResponse {
+      for(let interceptor in interceptors) {
+          try {
+            const interceptorResponse = interceptor.run(request);
+
+            // early return
+            if(!interceptorResponse.success) {
+                return interceptorResponse;
+            }
+          } catch(e) {
+              Logger.error(`Internal error when processing request. | Request: ${request} | Error: ${e}`)
+              return new InternalErrorResponse();
+          }
+      }
+  }
+}
+
+interface Interceptor {
+    run: (request: Request) => AppResponse
+}
+
+// Debug-logs the request
+class LoggingInterceptor {
+    run(request: Request) {
+        Logger.debug(request)
+        return new SuccessResponse();
+    }
+}
+
+// Keeps track of all requests in a time period
+// and triggers early return if the request count is too high.
+class GlobalThrottlingInterceptor {
+    const requestCount = 0;
+    const throttlingRequestLimit;
+
+    constructor({throttlingRequestLimit, throttlingPeriodInMillis}: AppConfig) {
+        this.throttlingRequestLimit = throttlingRequestLimit
+
+        setTimeout(() => {
+            this.requestCount = 0;
+        }, throttlingPeriodInMillis)
+    }
+
+    run(request: Request) {
+        this.requestCount++;
+        if(requestCount > throttlingRequestLimit) {
+            return new ThrottledResponse();
+        }
+        return new SuccessResponse();
+    }
+}
+```

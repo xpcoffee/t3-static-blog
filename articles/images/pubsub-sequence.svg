@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="496px" preserveAspectRatio="none" style="width:472px;height:496px;background:#FFFFFF;" version="1.1" viewBox="0 0 472 496" width="472px" zoomAndPan="magnify"><defs/><g><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="54" x2="54" y1="53.2969" y2="446.8906"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="159" x2="159" y1="53.2969" y2="446.8906"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="281" x2="281" y1="53.2969" y2="446.8906"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="414" x2="414" y1="53.2969" y2="446.8906"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="83" x="10" y="49.9951">Application</text><ellipse cx="54.5" cy="21" fill="#FFFFFF" rx="12" ry="12" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="50.5,9,56.5,4,54.5,9,56.5,14,50.5,9" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="83" x="10" y="458.8857">Application</text><ellipse cx="54.5" cy="478.1875" fill="#FFFFFF" rx="12" ry="12" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="50.5,466.1875,56.5,461.1875,54.5,466.1875,56.5,471.1875,50.5,466.1875" style="stroke:#000000;stroke-width:1.0;"/><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="80" x="119" y="22"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="66" x="126" y="41.9951">Publisher</text><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="80" x="119" y="445.8906"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="66" x="126" y="465.8857">Publisher</text><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="104" x="229" y="22"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="90" x="236" y="41.9951">Subscriber 1</text><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="104" x="229" y="445.8906"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="90" x="236" y="465.8857">Subscriber 1</text><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="103" x="363" y="22"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="89" x="370" y="41.9951">Subscriber 2</text><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="103" x="363" y="445.8906"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="89" x="370" y="465.8857">Subscriber 2</text><polygon fill="#000000" points="147,80.4297,157,84.4297,147,88.4297,151,84.4297" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="54.5" x2="153" y1="84.4297" y2="84.4297"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="37" x="61.5" y="79.3638">event</text><path d="M56,97.4297 L56,122.4297 L262,122.4297 L262,107.4297 L252,97.4297 L56,97.4297 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M252,97.4297 L252,107.4297 L262,107.4297 L252,97.4297 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="185" x="62" y="114.4966">no subscribers; does nothing</text><polygon fill="#000000" points="170,144.6953,160,148.6953,170,152.6953,166,148.6953" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="164" x2="280" y1="148.6953" y2="148.6953"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="49" x="176" y="143.6294">register</text><path d="M65,161.6953 L65,186.6953 L253,186.6953 L253,171.6953 L243,161.6953 L65,161.6953 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M243,161.6953 L243,171.6953 L253,171.6953 L243,161.6953 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="167" x="71" y="178.7622">subscribers: [Subscriber1]</text><polygon fill="#000000" points="147,208.9609,157,212.9609,147,216.9609,151,212.9609" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="54.5" x2="153" y1="212.9609" y2="212.9609"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="37" x="61.5" y="207.895">event</text><polygon fill="#000000" points="269,238.0938,279,242.0938,269,246.0938,273,242.0938" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="159" x2="275" y1="242.0938" y2="242.0938"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="37" x="166" y="237.0278">event</text><polygon fill="#000000" points="170,267.2266,160,271.2266,170,275.2266,166,271.2266" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="164" x2="413.5" y1="271.2266" y2="271.2266"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="49" x="176" y="266.1606">register</text><path d="M21,284.2266 L21,309.2266 L296,309.2266 L296,294.2266 L286,284.2266 L21,284.2266 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M286,284.2266 L286,294.2266 L296,294.2266 L286,284.2266 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="254" x="27" y="301.2935">subscribers: [Subscriber1, Subscriber 2]</text><polygon fill="#000000" points="170,331.4922,160,335.4922,170,339.4922,166,335.4922" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="164" x2="280" y1="335.4922" y2="335.4922"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="65" x="176" y="330.4263">deregister</text><path d="M63,348.4922 L63,373.4922 L255,373.4922 L255,358.4922 L245,348.4922 L63,348.4922 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M245,348.4922 L245,358.4922 L255,358.4922 L245,348.4922 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="171" x="69" y="365.5591">subscribers: [Subscriber 2]</text><polygon fill="#000000" points="147,395.7578,157,399.7578,147,403.7578,151,399.7578" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="54.5" x2="153" y1="399.7578" y2="399.7578"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="37" x="61.5" y="394.6919">event</text><polygon fill="#000000" points="402.5,424.8906,412.5,428.8906,402.5,432.8906,406.5,428.8906" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="159" x2="408.5" y1="428.8906" y2="428.8906"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="37" x="166" y="423.8247">event</text><!--MD5=[d99db9985b914bb0fdb8f04b7ea906cc]
+@startuml
+!theme plain
+
+control Application as app
+participant Publisher as pub
+participant "Subscriber 1" as sub1
+participant "Subscriber 2" as sub2
+
+app -> pub : event
+note over pub: no subscribers; does nothing
+sub1 -> pub : register
+note over pub: subscribers: [Subscriber1]
+app -> pub : event
+pub -> sub1 : event
+sub2 -> pub : register
+note over pub: subscribers: [Subscriber1, Subscriber 2]
+sub1 -> pub : deregister
+note over pub: subscribers: [Subscriber 2]
+app -> pub : event
+pub -> sub2 : event
+@enduml
+
+@startuml
+
+
+
+
+
+
+
+<style>
+  root {
+    BackgroundColor white
+    FontColor black
+    FontName Verdana
+    HyperLinkColor blue
+    LineColor black
+    LineThickness 1
+    Margin 5
+  }
+  caption {
+    LineThickness 0
+  }
+  footer {
+    LineThickness 0
+  }
+  header {
+    LineThickness 0
+  }
+  node {
+    MaximumWidth 300
+  }
+  title {
+    FontSize 22
+    LineThickness 0
+  }
+</style>
+
+skinparam ArrowLollipopColor black
+skinparam BackgroundColor white
+skinparam DefaultFontName Verdana
+skinparam DefaultMonospacedFontName Courier
+skinparam LifelineStrategy nosolid
+skinparam ParticipantPadding 10
+skinparam SequenceLifeLineBorderColor black
+skinparam Shadowing false
+skinparam UseBetaStyle true
+
+skinparam Activity {
+  BackgroundColor white
+  BarColor black
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam Boundary {
+  FontColor black
+}
+skinparam Box {
+  Padding 5
+}
+skinparam CircledCharacter {
+  FontColor black
+  FontName Courier
+  Radius 9
+}
+skinparam Class {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam ClassAttribute {
+  FontColor black
+  FontName Verdana
+}
+skinparam ClassStereotype {
+  FontColor black
+  FontName Verdana
+}
+skinparam Footer {
+  FontColor black
+  FontName Verdana
+}
+skinparam Header {
+  FontColor black
+  FontName Verdana
+}
+skinparam Hyperlink {
+  Color blue
+}
+skinparam IconPackage {
+  Color black
+  BackgroundColor white
+}
+skinparam IconPrivate {
+  Color black
+  BackgroundColor white
+}
+skinparam IconProtected {
+  Color black
+  BackgroundColor white
+}
+skinparam IconPublic {
+  Color black
+  BackgroundColor white
+}
+skinparam Note {
+  FontColor black
+  FontName Verdana
+}
+skinparam Object {
+  BorderColor black
+}
+skinparam Package {
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam State {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeA {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeC {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeE {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeI {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeN {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam UseCaseStereoType {
+  FontColor black
+  FontName Verdana
+}
+
+control Application as app
+participant Publisher as pub
+participant "Subscriber 1" as sub1
+participant "Subscriber 2" as sub2
+
+app -> pub : event
+note over pub: no subscribers; does nothing
+sub1 -> pub : register
+note over pub: subscribers: [Subscriber1]
+app -> pub : event
+pub -> sub1 : event
+sub2 -> pub : register
+note over pub: subscribers: [Subscriber1, Subscriber 2]
+sub1 -> pub : deregister
+note over pub: subscribers: [Subscriber 2]
+app -> pub : event
+pub -> sub2 : event
+@enduml
+
+PlantUML version 1.2021.17beta4(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

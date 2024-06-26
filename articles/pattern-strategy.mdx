@@ -1,0 +1,112 @@
+---
+title: Strategy
+description: A reference for the strategy pattern.
+faIcon: faShapes
+date: 2021-12-27
+lastEdit: 2021-12-27
+guid: edc25e7e-38be-4eb4-b39a-cfa5e2df5e79
+---
+
+import Link from "next/link";
+import SequenceDiagram from "./images/strategy-sequence.svg"
+
+**TLDR** A "strategy" is a <Link href="/articles/patterns">pattern</Link> which provides a way to define and exchange multiple implementations for processes.
+
+## Problem/context
+
+Systems often need to change the way they perform their core processes as the context of the app changes e.g.
+reducing resource usage when battery is low, or changing how elements are rendered depending on whether the application
+is currently focussed.
+
+## Concept
+
+We define an interface for the functionality that needs to be interchanged.
+We then create a new class for each implementation we need.
+
+During runtime, based on application context, we can then determine which implementation to use e.g. using a <Link href="/articles/patterns">factory</Link> and we set the appropriate implementation for the application to use.
+
+<SequenceDiagram />
+
+**Key characteristics**
+
+- Functionality is extracted into its own interface. This functionality is then re-injected into the places which need to use it.
+- There are multiple implementations of this functionality which
+
+**Notes**
+
+- This pattern is one way to compose functionality into classes and can be used as a way to <a href="https://en.wikipedia.org/wiki/Composition_over_inheritance">favour composition over inheritence</a>.
+- A side-effect of this pattern is that the extracted functionality can then be re-used elsewhere.
+
+## Example
+
+Plant watering functionality has been extracted into several **strategies** that are used an automated sprinkler system.
+
+```typescript
+// Note: some constant definitions have been left out for brevity
+
+/**
+ * Usage
+ */
+
+// start the system in winter
+const sprinklerSystem = new SprinklerSystem(new WinterWateringStrategy())
+
+// change the strategy in spring
+sprinklerSystem.setWateringStrategy(new SpringWateringStrategy())
+
+/**
+ * Definitions
+ */
+class SprinklerSystem {
+  const wateringStrategy;
+  const lastWatered = new Date();
+
+  constructor(wateringStrategy: WateringStrategy) {
+    this.wateringStrategy = wateringStrategy;
+
+    // start process that checks whether to water every hour
+    setTimeout(() => {
+      const currentDate = Date.now();
+      const amountToWater = this.wateringStrategy.getAmountToWaterInMillliters({
+        currentDate,
+        lastWatered
+      })
+
+      if(amountToWater > 0) {
+        this.startSprinklerCycle(amountToWater)
+        lastWatered = currentDate
+      }
+    }, ONE_HOUR_IN_MILLIS)
+  }
+
+  setWateringStrategy(wateringStrategy: WateringStrategy) {
+    this.wateringStrategy = wateringStrategy;
+  }
+
+  private startSprinklerCycle(amountToWater: number) {
+    // send instructions to physical sprinkler
+  }
+}
+
+interface WateringStrategy {
+  getAmountToWaterInMillliters: ({currentDate, lastWatered}: {currentDate: Date, lastWatered: Date}) => number
+}
+
+// water a lot every week
+class WinterWateringStrategy implements WateringStrategy {
+  getAmountToWaterInMillliters: ({currentDate, lastWatered}) => {
+    const millisSinceLastWatered = currentDate - lastWatered;
+    const shouldWater =  millisSinceLastWatered > ONE_WEEK_IN_MILLIS;
+    return shouldWater ? 15 : 0;
+  }
+}
+
+// water a little every day
+class SpringWateringStrategy implements WateringStrategy {
+  getAmountToWaterInMillliters: ({currentDate, lastWatered}) => {
+    const millisSinceLastWatered = currentDate - lastWatered;
+    const shouldWater = millisSinceLastWatered > ONE_DAY_IN_MILLIS;
+    return shouldWater ? 3 : 0;
+  }
+}
+```

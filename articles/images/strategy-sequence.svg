@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="389px" preserveAspectRatio="none" style="width:818px;height:389px;background:#FFFFFF;" version="1.1" viewBox="0 0 818 389" width="818px" zoomAndPan="magnify"><defs/><g><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="68" x2="68" y1="53.2969" y2="339.4922"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="194" x2="194" y1="53.2969" y2="339.4922"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="366" x2="366" y1="53.2969" y2="339.4922"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="588" x2="588" y1="53.2969" y2="339.4922"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="760" x2="760" y1="53.2969" y2="339.4922"/><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="97" x="20" y="22"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="83" x="27" y="41.9951">Application</text><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="97" x="20" y="338.4922"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="83" x="27" y="358.4873">Application</text><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="94" x="147" y="22"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="80" x="154" y="41.9951">AppLogger</text><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="94" x="147" y="338.4922"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="80" x="154" y="358.4873">AppLogger</text><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="191" x="271" y="22"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="177" x="278" y="41.9951">ConsoleLoggingStrategy</text><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="191" x="271" y="338.4922"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="177" x="278" y="358.4873">ConsoleLoggingStrategy</text><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="192" x="492" y="22"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="178" x="499" y="41.9951">RemoteLoggingStrategy</text><rect fill="#FFFFFF" height="30.2969" style="stroke:#000000;stroke-width:1.0;" width="192" x="492" y="338.4922"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="178" x="499" y="358.4873">RemoteLoggingStrategy</text><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="107" x="704" y="49.9951">Remote server</text><path d="M740,9 L740,33 M740,21 L757,21 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><ellipse cx="769" cy="21" fill="#FFFFFF" rx="12" ry="12" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="107" x="704" y="351.4873">Remote server</text><path d="M740,358.7891 L740,382.7891 M740,370.7891 L757,370.7891 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><ellipse cx="769" cy="370.7891" fill="#FFFFFF" rx="12" ry="12" style="stroke:#000000;stroke-width:1.0;"/><path d="M10,68.2969 L10,93.2969 L379,93.2969 L379,78.2969 L369,68.2969 L10,68.2969 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M369,68.2969 L369,78.2969 L379,78.2969 L369,68.2969 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="348" x="16" y="85.3638">AppLogger.loggingStrategy = ConsoleLoggingStrategy</text><polygon fill="#000000" points="182,115.5625,192,119.5625,182,123.5625,186,119.5625" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="68.5" x2="188" y1="119.5625" y2="119.5625"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="29" x="75.5" y="114.4966">log()</text><polygon fill="#000000" points="354.5,144.6953,364.5,148.6953,354.5,152.6953,358.5,148.6953" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="194" x2="360.5" y1="148.6953" y2="148.6953"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="29" x="201" y="143.6294">log()</text><path d="M297,161.6953 L297,186.6953 L436,186.6953 L436,171.6953 L426,161.6953 L297,161.6953 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M426,161.6953 L426,171.6953 L436,171.6953 L426,161.6953 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="118" x="303" y="178.7622">Log to the console</text><path d="M10,196.8281 L10,236.8281 L379,236.8281 L379,206.8281 L369,196.8281 L10,196.8281 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M369,196.8281 L369,206.8281 L379,206.8281 L369,196.8281 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="319" x="16" y="213.895">something changes strategy e.g. an admin action</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="348" x="16" y="229.0278">AppLogger.loggingStrategy = RemoteLoggingStrategy</text><polygon fill="#000000" points="182,259.2266,192,263.2266,182,267.2266,186,263.2266" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="68.5" x2="188" y1="263.2266" y2="263.2266"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="29" x="75.5" y="258.1606">log()</text><polygon fill="#000000" points="576,288.3594,586,292.3594,576,296.3594,580,292.3594" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="194" x2="582" y1="292.3594" y2="292.3594"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="29" x="201" y="287.2935">log()</text><polygon fill="#000000" points="748.5,317.4922,758.5,321.4922,748.5,325.4922,752.5,321.4922" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="588" x2="754.5" y1="321.4922" y2="321.4922"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="21" x="595" y="316.4263">call</text><!--MD5=[f569856637bc02f64e833f2e9395713b]
+@startuml
+!theme plain
+
+participant "Application" as caller
+participant "AppLogger" as user
+participant "ConsoleLoggingStrategy" as consolelogger
+participant "RemoteLoggingStrategy" as remotelogger
+boundary "Remote server" as remote
+
+note over user: AppLogger.loggingStrategy = ConsoleLoggingStrategy
+caller -> user : log()
+user -> consolelogger : log()
+note over consolelogger: Log to the console
+note over user: something changes strategy e.g. an admin action\nAppLogger.loggingStrategy = RemoteLoggingStrategy
+caller -> user : log()
+user -> remotelogger : log()
+remotelogger -> remote: call
+@enduml
+
+@startuml
+
+
+
+
+
+
+
+<style>
+  root {
+    BackgroundColor white
+    FontColor black
+    FontName Verdana
+    HyperLinkColor blue
+    LineColor black
+    LineThickness 1
+    Margin 5
+  }
+  caption {
+    LineThickness 0
+  }
+  footer {
+    LineThickness 0
+  }
+  header {
+    LineThickness 0
+  }
+  node {
+    MaximumWidth 300
+  }
+  title {
+    FontSize 22
+    LineThickness 0
+  }
+</style>
+
+skinparam ArrowLollipopColor black
+skinparam BackgroundColor white
+skinparam DefaultFontName Verdana
+skinparam DefaultMonospacedFontName Courier
+skinparam LifelineStrategy nosolid
+skinparam ParticipantPadding 10
+skinparam SequenceLifeLineBorderColor black
+skinparam Shadowing false
+skinparam UseBetaStyle true
+
+skinparam Activity {
+  BackgroundColor white
+  BarColor black
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam Boundary {
+  FontColor black
+}
+skinparam Box {
+  Padding 5
+}
+skinparam CircledCharacter {
+  FontColor black
+  FontName Courier
+  Radius 9
+}
+skinparam Class {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam ClassAttribute {
+  FontColor black
+  FontName Verdana
+}
+skinparam ClassStereotype {
+  FontColor black
+  FontName Verdana
+}
+skinparam Footer {
+  FontColor black
+  FontName Verdana
+}
+skinparam Header {
+  FontColor black
+  FontName Verdana
+}
+skinparam Hyperlink {
+  Color blue
+}
+skinparam IconPackage {
+  Color black
+  BackgroundColor white
+}
+skinparam IconPrivate {
+  Color black
+  BackgroundColor white
+}
+skinparam IconProtected {
+  Color black
+  BackgroundColor white
+}
+skinparam IconPublic {
+  Color black
+  BackgroundColor white
+}
+skinparam Note {
+  FontColor black
+  FontName Verdana
+}
+skinparam Object {
+  BorderColor black
+}
+skinparam Package {
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam State {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeA {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeC {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeE {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeI {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeN {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam UseCaseStereoType {
+  FontColor black
+  FontName Verdana
+}
+
+participant "Application" as caller
+participant "AppLogger" as user
+participant "ConsoleLoggingStrategy" as consolelogger
+participant "RemoteLoggingStrategy" as remotelogger
+boundary "Remote server" as remote
+
+note over user: AppLogger.loggingStrategy = ConsoleLoggingStrategy
+caller -> user : log()
+user -> consolelogger : log()
+note over consolelogger: Log to the console
+note over user: something changes strategy e.g. an admin action\nAppLogger.loggingStrategy = RemoteLoggingStrategy
+caller -> user : log()
+user -> remotelogger : log()
+remotelogger -> remote: call
+@enduml
+
+PlantUML version 1.2021.17beta4(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

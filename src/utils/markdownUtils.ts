@@ -2,35 +2,42 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-export function getMarkdownContent(basePath: string) {
-  const folder = `${basePath}/`;
-  const files = fs.readdirSync(folder);
-  const markdownFiles = files.filter(
-    (file) => file.endsWith(".md") || file.endsWith(".mdx"),
-  );
-
-  const markdownContent = markdownFiles.map((fileName) => {
-    const contents = fs.readFileSync(path.join(basePath, fileName), "utf8");
-    const matterResult = matter(contents);
-    const frontMatter = toFrontMatter(fileName, matterResult.data);
-    return {
-      frontMatter,
-      content: matterResult.content,
-    };
-  });
-
-  return markdownContent;
-}
-
 const fileNameFromSlug = (slug: string): string => {
   return `${slug}.md`;
 };
 
-export function getMarkdownContentForSlug(basePath: string, slug: string) {
+const ARTICLES_DIR = "articles";
+
+export function getMarkdownMetadata() {
+  function getMetadataForFile(filename: string) {
+    const slug = filename.replace(".mdx", "");
+    const contents = fs.readFileSync(path.join(ARTICLES_DIR, filename), "utf8");
+    const matterResult = matter(contents);
+
+    return {
+      ...toFrontMatter(matterResult.data),
+      slug,
+    };
+  }
+
+  return fs
+    .readdirSync(path.join(ARTICLES_DIR), { withFileTypes: true })
+    .filter((file) => file.isFile())
+    .map((file) => getMetadataForFile(file.name));
+}
+
+export function getMarkdownContentSlugs() {
+  return fs
+    .readdirSync(path.join(ARTICLES_DIR), { withFileTypes: true })
+    .filter((file) => file.isFile())
+    .map((file) => file.name.replace(".mdx", ""));
+}
+
+export function getMarkdownContentForSlug(slug: string) {
   const fileName = fileNameFromSlug(slug);
-  const contents = fs.readFileSync(path.join(basePath, fileName), "utf8");
+  const contents = fs.readFileSync(path.join(ARTICLES_DIR, fileName), "utf8");
   const matterResult = matter(contents);
-  const frontMatter = toFrontMatter(fileName, matterResult.data);
+  const frontMatter = toFrontMatter(matterResult.data);
 
   return {
     frontMatter,
@@ -39,19 +46,12 @@ export function getMarkdownContentForSlug(basePath: string, slug: string) {
 }
 
 export type FrontMatter = {
-  slug: string;
   title: string;
   description: string;
 };
 
-function toFrontMatter(
-  fileName: string,
-  data: Record<string, any>,
-): FrontMatter {
-  console.log("filename:" + JSON.stringify(fileName));
-
+function toFrontMatter(data: Record<string, any>): FrontMatter {
   return {
-    slug: fileName.replace(".md", ""),
     title: data["title"] ?? "unkown article",
     description: data["description"] ?? "unkown description",
   };

@@ -1,0 +1,383 @@
+---
+title: Inexpensive mechanisms to support team processes
+description: A list of mechanisms that are cheap to implement, but that empower valuable processes.
+faIcon: faPaperclip
+date: 2021-09-02
+lastEdit: 2022-07-24
+tocDepth: 2
+guid: ea998ee8-1f2d-497e-aed5-730dd63c0fa4
+---
+
+import { PullQuote } from "../components"
+
+<div className="py-5" />
+
+<span className="quicksand">
+  This is a (hopefully) growing list of mechanisms that are cheap to practically
+  implement, but that empower processes that add value to the team and our
+  customers.
+</span>
+
+<div className="py-5" />
+
+## Team alignment
+
+### Tenets
+
+<span className="text-lg">
+  A prioritized set of team defaults for how to resolve tension between
+  incompatible requirements.
+</span>
+
+<PullQuote>Prioritize the things we care the most about.</PullQuote>
+
+#### Problem
+
+We want to make correct decisions quickly and consistently, especially during times of high
+stress.
+This is really difficult to do if the team hasn't previously aligned on how to make
+these difficult decisions.
+
+#### Concept
+
+Pre-align the team around a set of default decisions/positions and use those as a starting point
+when discussing tough decisions. Document these decisions/positions in a living document.
+The resulting document is a list of tenets that can be used as a reference during times of
+stress/contention to resolve arguments and make decisions quickly.
+The document can also be shared with stakeholders and leadership to be more transparent
+about how we make decisions and to give them an opportunity to give input/feedback.
+
+**Very important!** Tenets are not rules.
+Their primary goal is to help unblock _difficult_ decisions, which are generally ones where
+the correct path is unclear in the moment.
+There are many situations where we may make the opposite decision from what is in our tenets. Based on a context where the correct decision is clear.
+
+**Examples**
+
+```md
+Team: API platform team
+
+Tenets:
+
+1.  Force multiplication over individual attention. We maximize our value by delivering
+    on features that benefit the most amount of teams on the platform.
+2.  General availability over individual availability. We protect the overall experience
+    of the APIs on the platform; we will deteriorate the experience of individual APIs if
+    their performance starts to affect other APIs.
+3.  Developer experience over feature set. We first build and iterate on the experience
+    of existing features such that they are safe and easy to integrate with before we
+    consider additional features.
+```
+
+```md
+Project: Address imminent scaling cliff
+
+Tenets:
+
+1.  Security over availability. We do not regress on our security posture, even if we end
+    up hitting our scaling cliff.
+2.  Results over perfection. The primary goal is to prevent our service from hitting the
+    scaling cliff, even if that means taking on technical debt.
+3.  Early warning over early delivery. We instrument our service to detect early signs of
+    reaching the scaling cliff. We accept the risk of not making progress on the core
+    deliverable for significant time up-front in favour of having the ability to detect
+    critical failures early enough that we can react to them.
+```
+
+#### Considerations
+
+**Tenets should help resolve _contenious_ senarios.**
+
+Tenets should themselves be contentious. Tenets that state the obvious bring little value.
+
+```md
+<!-- ❌ Useless; there is no tradeoff here -->
+
+High quality over low quality. If we maintain high quality our customers will come back.
+
+<!-- ✅ Better; clear tradeoff, position and rationale -->
+
+Learning over usability. We push changes that may lower the usability of our service in
+order to learn and deeper understand our customers.
+```
+
+**Tenets should be prioritized.**
+
+It is very possible that tenets can be in tension with one another. Prioritizing them
+prevents us from getting deadlocked between tenets.
+
+This has the added benefit of communicating our values clearer to stakeholders.
+
+**Tenets should change over time**
+
+While some tenets can be based on a core philosophy that is stable (e.g. AWS has tenets around backwards compatibility)
+most tenets are highly dependent on the context of the team. As the team changes due to growth of the system
+, introduction of new responsibilities, or change in business goals so too should the tenets change.
+
+**"It depends" isn't useful**
+
+The point is to extract positions that can help make decisions quicker later.
+Settling on answers that don't actually take a position isn't useful in this exercise.
+Try to frame the senarios like "what do we choose if the decision is not clear from the context?"
+
+### Tech experiment
+
+A short-lived task aimed at gaining the information needed to make a decision.
+
+<PullQuote>It is better to try, fail and learn than to stagnate.</PullQuote>
+
+#### Problem
+
+Sometimes the team can't agree whether something is worth doing due to a lack of datapoints.
+
+#### Concept
+
+We plan a _minimal/hacky_ implementation of an idea that enables us gather data and make progress.
+We build metrics into the implementation that allow us to know whether the decision was correct,
+and we plan an explicit deadline at which we evaluate the metrics and decide whether to plan the
+full implementation or to roll back.
+
+#### Considerations
+
+**Definitions of success, based on metrics**
+
+The point of the experiment is to ultimately make a decision. To make that as easy as possible,
+success metrics/conditions need to be well defined up-front and baked into the implementation.
+
+**2 way doors**
+
+The implementation must to be _easily_ reversible.
+This helps mitigate the risk we take when making a decision on limited data.
+
+**Priority still matters**
+
+In some cases it can be useful to decide to reduce the scope of a feature to an experiment
+to allow it to be pulled in when there is low capacity, but this can also be abused. Be
+conscious of experiments "jumping the queue" in the backlog due to their light weight.
+
+**Not the same as an investigation/spike**
+
+Investigations/spikes are focused on disambiguating **how** to build something and to build
+knowledge. They do not necessarily require any implementation and they can still be necessary
+after a decision has been made e.g. we know what feature to build but we need to figure out
+some implementation details.
+
+In contrast an experiment is about trying something "for real" and measuring the results to
+enable us to make a decision.
+
+#### Experiment proposal
+
+This is a template for an experiment proposal/overview. This is used to make the initial decision around
+whether or not to plan the experiment.
+
+```md
+## Experiment: Foobar
+
+### Context
+
+How do things work now?
+
+### Ambiguity/problem
+
+What knowledge are we aiming to gain/what problem are we looking to solve with this
+experiment?
+
+### Approach
+
+Short description of the approach. This is not a design; that will come later.
+
+### Out of scope
+
+What will not be considered as part of this experiment.
+
+### Success criteria/Metrics
+
+How do we know whether this was successful or not?
+
+### Owners
+
+@someone
+@anyone
+
+### Start date
+
+YYYY-MM-DD
+
+### End date
+
+YYYY-MM-DD
+
+This is a hard cutoff. On this date we make a decision around failure/success and
+whether to invest further.
+
+### Conclusions/learnings
+
+To be written after the experiment to summaries the outcomes. Link to more detailed
+artifacts here (designs, data, code, etc).
+```
+
+### Decision log
+
+<p className="text-lg">A record of major decisions, with minimal context.</p>
+
+<PullQuote>
+  We can reference and share the important decisions we make.
+</PullQuote>
+
+#### Problem
+
+We strive to make decisions quickly and often. In a fast-moving environment, members of the team or stakeholders can often lose track of when decisions are made, and the context around those decisions.
+This misalignment around decisions often leads to communication issues, causing unnecessary conflict and impacting the team's ability to deliver.
+
+#### Concept
+
+Put down decisions in writing in a central location that can be tracked by both the team and stakeholders, along with some minimal context around the decision to help readers understand why the decision was taken.
+
+How to structure the log is up to the team: the log could be specific to a domain e.g. [Architecture Decision Records](https://adr.github.io/), or can store all important decisions made by a team regardless of domain.
+
+**Examples**
+
+```md
+Team: API team
+
+Decisions:
+
+Date | Decision | People | Context
+2022-07-10 | Deprecate SOAP | @foo @bar @baz @grault | Usage of SOAP is [less than 1%](link to data), but contributes [40% of effort to new features](link to data)
+2022-06-15 | Change sprints to period of 4 weeks | @foo @bar @baz | Upcoming work are large-ish unambiguous projects, low likelihood that we need to change direction quicker than 4 weeks
+2022-06-04 | Release /courses API without resource cost throttling | @baz @grault | Maximum expected load for new API can be handled by default throttling. See also [design review](link to review)
+2022-05-22 | Spend 1 week paying back tech debt | @bar @grault | Rest of the team is on holiday next week
+```
+
+#### Considerations
+
+**Decisions are not rules**
+
+Decisions recorded here shouldn't be treated as rules that others need to obey. On the contrary, the primary goal is to keep people informed/on the same page.
+Team members can watch the record for changes and are encouraged to raise issues they have with any decisions they come across.
+
+**People section is not for blame/responsibility**
+
+Decisions are owned by a team. Recording those involved with a decision is to give readers a point of contact they can reach out to for more context or for help.
+
+**Link out**
+
+The log is meant to record the final decision, not the full debate. If deeper context is needed to understand the decision (investigation reports, data, designs), use links.
+
+**Long logs can become a bit confusing**
+
+When there are large logs, it can be hard to find out the "latest" decisions on specific domains, especially on logs that host multiple different domains.
+Adding metadata to records e.g. tags for different domains, or unique IDs that can be referenced in other records, can help with this.
+
+<div className="py-5" />
+
+## Operations
+
+### Operational event log
+
+Team-specific log of start/end of significant operational events. Most recent entries
+at the top.
+
+<PullQuote>A reference of the most important events in our systems.</PullQuote>
+
+#### Problem
+
+It is time-consuming and often difficult to find and correlate events that happened
+in systems that we're dependent on or in systems that are dependent on us, especially
+if these events weren't widely-spread or shared.
+
+This difficulty means that you usually need to manually reach out to people involved in
+incidents in order to find out what happened.
+
+#### Concept
+
+Teams keep a minimal log of the most important events that happen to their systems.
+This log can be accessed by other teams that want to correlate events they see in their own
+systems or by team mates in the future to determine if there are patterns in events.
+
+The logs are also used as major time-markers in post-mortem investigations for larger incidents
+to understand impact and recovery across multiple systems.
+
+In more advanced cases these logs should be able to be injested by tooling to display
+events across the company on dashboards or to run analytics on the data.
+
+#### Ops event log format
+
+This format tracks major state changes (when an event starts, major evolutions and when an event ends).
+There can be one log per team or multiple teams can contribute to a shared log.
+
+```md
+timestamp | short event description | status (start/state-change/end) | _ticket id_ | short status change description
+```
+
+Example:
+
+```md
+## Operational events
+
+2021-08-30T10:14Z | home page latency increase | end | HOME-8557 | full recovery
+2021-08-30T10:13Z | home page latency increase | state-change | HOME-8557 | partial recovery
+2021-08-30T10:11Z | home page latency increase | start | HOME-8557 | alarm fires
+2021-08-29T12:00Z | failover data migration | end | DATA-8552 | workflow successful
+2021-08-29T09:31Z | failover data migration | start | DATA-8552 | workflow started
+```
+
+### Operational review journal
+
+Team-specific journal of a periodic operational review.
+
+<PullQuote>How did our systems perform for our customers last week?</PullQuote>
+
+#### Problem
+
+The team needs a place to track the operational health of its systems over time,
+both for future reference and as a place where team members and stakeholders can understand
+the operational posture of their system.
+
+#### Concept
+
+Periodically write and publish a journal of the operational health of our systems.
+The journal should contain all the most important metrics that need actively monitoring
+as well as information on the current customer experience and the operational challenges the
+team faces. Finally it should list ongoing operational action items the team takes.
+
+Use the journal to drive our operational reviews so that you ensure you answer the most
+important questions during the session. Make entries this accessible to stakeholders.
+
+#### Template journal format
+
+I've found the following format to be useful:
+
+```md
+## YYYY-MM-DD Ops review
+
+### What experiences do we own/maintain?
+
+_This section shouldn't change often and is more to allow sharing._
+
+### Operational wins
+
+### What was last week like for customers?
+
+Customer impacting events (both good and bad):
+
+Customer feedback:
+
+Metrics callouts:
+
+### What was last week like for on-call?
+
+Major events:
+
+Notable classes of issues:
+
+Lessons learned:
+
+Most wanted improvement:
+
+### What is currently the biggest operational risk?
+
+### Action items
+
+1. Action item - @owner
+```

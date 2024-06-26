@@ -1,0 +1,86 @@
+---
+title: Reducing cost of team restructuring
+description: Techniques that allow flexibility in changing teams and moving ownership
+faIcon: faSitemap
+date: 2024-06-09
+lastEdit: 2024-06-09
+guid: 184e0a9e-5a94-4771-a9b0-d3b94a50685c
+---
+
+[Conway's Law](https://en.wikipedia.org/wiki/Conway%27s_law) is useful in pointing out that team/org structure strongly influence the structure of the systems and architectures we build.
+We can use this knowledge to pro-actively structure teams to create communication structures that mimic our desired architecture.
+We want changes in team structure to be feasible to do when we need, and we want this to be low cost.
+
+In practice, I've seen some patterns which make it expensive, or even dangerous, to make changes to teams.
+
+In this page I'm keeping track of these patterns, and alternatives which reduce/mitigate their negative side-effects.
+
+## High-level
+
+These high-level points are the basis for the rest of my current thoughts around this.
+
+ - Restructuring teams is more expensive when team names/members/tools are strongly coupled to other parts of your system. Reducing coupling increases flexibility in team structure.
+ - High-level product capabilities and domains have different lifecycles to teams. In general capabilities outlive individual teams.
+ - Team structure and system structure only matters for engineers/technical roles; the rest of your company cares about capabilities more than org structure.
+
+## Patterns & anti-patterns
+
+### Organize around capabilities
+
+Since stakeholders mainly care about capabilities, and that capabilities outlast team names, make them the anchor point for communications.
+
+<div className="mt-8 text-lg"> ❌ **Don't do this.** </div>
+
+![communications centered on team](./images/team-centered-communications.jpg)
+
+In this example an organization is using team names as the anchor point for communication. This presents some problems:
+
+ - stakeholders need to keep up to date with organizational changes around every capability they care about
+ - stakeholders need to keep up to date implementation details (which service enables a capability), and then find a team that owns this capaibilty
+ - similar names between teams can confuse communications
+ - all of the above mean that a large amount of energy needs to be spent to educate stakeholders about team changes whenever they happen
+
+<div className="mt-8 text-lg"> ✅ **Better.** </div>
+
+![communications centered on capability](./images/capability-centered-communications.jpg)
+
+Anchoring communications on capability improves on most of these painpoints and has some desirable properties:
+
+ - Stakeholders do not need to know about either team names or how capabilities are implemented (e.g. which services exist).
+ - Team names become non-critical; this makes them cheaper to change and enables them to be used e.g. for team culture/identity.
+ - Moving capabilties between teams does not affect the rest of the system. That makes changes cheaper.
+ - Focus on capabilities reduces the risk of having orphan capabilities, and gives a mechanism to describe the system's full feature set.
+
+### Keep organization structure out of code
+
+Your system code should describe domains/features/capabilities. You should avoid describing organization structure wherever possible.
+
+<div className="mt-8 text-lg"> ❌ **Don't do this.** </div>
+
+```java
+com.mycompany.myorg.myteam.userservice;
+
+class UserService { /* ... */};
+```
+
+This code:
+
+ - Would need to be refactored the namespace when the team or org changes. These changes can introduce bugs.
+Put another way, this system has a property that a change to a team name can potentially cause issues to their production service. This is a property we want to avoid.
+ - If you _don't_ refactor/let the namespace become stale, then the namespaces become meaningless and potentially even confusing. Your code structure is working against you instead of helping you.
+
+
+<div className="mt-8 text-lg"> ✅ **Better.** </div>
+
+```java
+com.myproduct.mydomain.mycapability.userservice;
+
+class UserService { /* ... */};
+```
+
+This code:
+
+ - Does not rely on organization structure. The owners of this code can be changed without needing to make changes to the code itself.
+ - Organizes by domain and capabilities. This makes it possible for someone to find how a feature is implemented without needing to know about your organizational structure.
+
+

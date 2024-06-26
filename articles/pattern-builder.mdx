@@ -1,0 +1,85 @@
+---
+title: Builder
+description: A reference for builder pattern.
+faIcon: faShapes
+date: 2021-12-27
+lastEdit: 2021-12-27
+guid: 43c3019a-2bd0-425a-aa98-7dd73de03632
+---
+
+import Link from "next/link";
+
+**TLDR** A "builder" is a <Link to="/articles/patterns">pattern</Link> which provides a more user-friendly interface for configuring and creating an object.
+
+## Problem/context
+
+Classes with a lot of functionality can grow to have many optional parameters and many allowable configurations.
+These interfaces can become confusing and cumbersome to use.
+They can also be problematic to use if you don't have all the necessary parameters up-front, forcing the user to progressively keep a reference to parameters until all of them have been gathered.
+
+## Concept
+
+We create a class dedicated to tracking configuration choices and that exposes an API which allows users to specify options one at a time.
+When the user is ready, they can then ask this new class to create a new instance of the object.
+
+![](./images/builder-sequence.png)
+
+**Key characteristics**
+
+- Specifying configuration and creating a new instance of an object are separate actions.
+- Configuration methods return the builder object to enable call-chaining.
+- The builder objects are stateful: they store configuration options.
+
+## Examples
+
+A **builder class** that creates a new car object with custom configuration.
+
+```typescript
+// Note: several class/enum definitions have been left out for brevity
+
+const snazzyCar = new CarBuilder()
+  .withDriveType(new ManualDrive())
+  .withSeatMaterial(Material.SUEDE)
+  .withRoofType(new Convertible())
+  .build()
+
+const wellPricedCar = new CarBuilder().withCheapestOptions().build()
+
+class CarBuilder {
+  // Builders can also be used to define defaults to reduce the need for users to configure them.
+  // Different builders can specify different sets of defaults.
+  private seatMaterial: Material = Material.LEATHER
+  private driveType: DriveType = new AutomaticDrive()
+  private roofType: RoofType = new Hardtop()
+
+  withSeatMaterial(seatMaterial: Material) {
+    this.seatMaterial = seatMaterial
+    return this // returning this object to allow method chaining
+  }
+
+  withDriveType(driveType: DriveType) {
+    this.driveType = driveType
+    return this
+  }
+
+  withRoofType(roofType: RoofType) {
+    this.roofType = roofType
+    return this
+  }
+
+  // configuration methods can also configure groups of options
+  withCheapestOptions() {
+    this.seatMaterial = Material.PLASTIC
+    this.driveType = new ManualDrive()
+    this.roofType = new Hardtop()
+  }
+
+  build() {
+    return new Car({
+      seatMaterial: this.seatMaterial,
+      driveType: this.driveType,
+      roofType: this.roofType,
+    })
+  }
+}
+```

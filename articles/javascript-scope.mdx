@@ -1,0 +1,196 @@
+---
+title: Scope in JavaScript
+description: A brief overview of scope in javascript.
+faIcon: faWindowRestore
+date: 2021-08-21
+lastEdit: 2021-12-28
+guid: 03ae05cc-9d97-4ad8-9df4-5f5600b3963c
+---
+
+Many bugs in programming arise from a misunderstanding of how scope is structured and how it can change. This page is a quick reference to help understand how scope behavies in JavaScript.
+
+**Contents**
+
+- [General definition](#general-definition)
+- [References](#references)
+- [Types of scope in JavaScript](#types-of-scope-in-javascript)
+- [Lexical scoping](#lexical-scoping)
+- [Closure](#closure)
+
+## General definition
+
+**Scope** is the "stuff" that's available to a line of code at the time it gets executed. Scope contains the variables/references/values and functions that the line of code can access. Another name for scope could be the "execution context" of a specific line of code.
+
+## References
+
+JavaScript accesses values through **references**. The following steps through how references are used.
+
+```javascript
+/**
+ *  1. Create an empty object.
+ *  2. Create a numerical value of 20. Let's call this "OriginalValue."
+ *  3. Create a reference labeled "age" on the object, assign it "OriginalValue"
+ *  4. Assign the object to a new reference labeled "person"
+ */
+const person = { age: 20 }
+
+/**
+ * 1. Look up "person" reference, get the value it points to i.e. "resolve the reference".
+ * 2. On this value resolve the reference for "age".
+ * 3. Assign the resolved value to a new reference labelled "ageSnapshot".
+ */
+const ageSnapshot = person.age
+
+/**
+ * 1. Create a new value 21. Let's call this "NewValue".
+ * 2. Resolve the "person" reference
+ * 3. On the return value, resolve the reference for "age".
+ * 4. Assign "NewValue" to the "age" reference.
+ */
+person.age = 21
+
+/*
+ * 1. Resolve the references for person
+ * 2. On the resulting value, resolve the reference for "age".
+ *    This returns "NewValue", whose value is 21.
+ * 3. Log the value.
+ */
+console.log(person.age)
+// => 21
+
+/*
+ * 1. Resolve the reveference for "ageSnapshot".
+ * 2. This returns "OriginalValue", whose value is 20.
+ * 3. Log the value.
+ */
+console.log(ageSnapshot)
+// => 20
+```
+
+## Types of scope in JavaScript
+
+| type     | description                                                                                                                                                                                                                                                               |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| global   | Global scope is accessible from the entire execution environment (e.g. webpage or NodeJS instance). Objects have gobal scope when they are declared at the root level of a program i.e. outside of modules/classes/blocks/functions.                                      |
+| module   | Module scope is accessible anywhere in a [JavaScript module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules). To access module-scoped objects outside of a module, they need to be exported from the module then imported into the consuming code. |
+| function | References with function scope are declared within functions. They are accessible anywhere within that function, irrespective of where that function is called from.                                                                                                      |
+| block    | Block scope is confined by a JavaScript block `{}`.                                                                                                                                                                                                                       |
+
+```javascript
+/* main.js */
+// Scope type: global scope
+const numbers = [1, 2, 3, 4, 5]
+
+const multiply = require("product.js").multiply
+
+for (let number in numbers) {
+  // Scope type: block scope
+  const factor = multiply(number)
+  console.log(factor)
+}
+```
+
+```javascript
+/* product.js */
+
+// Scope type: module scope
+const MULTIPLIER = 10
+
+function multiply(number) {
+  // Scope type: function scope
+  return number * MULTIPLIER
+}
+
+export { multiply }
+```
+
+### Variable declaration with block scope
+
+`let` and `const` are confined by block scope. `var` is not confined by block scope.
+
+```javascript
+{
+  var myVar = "foo"
+  const myConst = "bar"
+  let myLet = "baz"
+  console.log("var: " + myVar, "const: " + myConst, "let: " + myLet)
+  // => var: foo const: bar let: baz
+}
+
+console.log("var: " + myVar) // var leaks out of the block
+// => foo
+console.log("const " + myConst) // not accessible outside of block
+// => ReferenceError
+console.log("let " + myLet) // not accessible outside of block
+// => ReferenceError
+```
+
+This is important to consider when dealing with loops because loop iteration variables get defined in a block. Using `var` will cause the **same object** to persist across iterations. Using `let` will create a new instance for every loop.
+
+## Lexical scoping
+
+It's possible to nest scopes in JavaScript. With the idea of nesting scope comes the idea of **lexical scoping**, where a reference defined in a scope is available in that scope and all scopes that are nested within that scope.
+
+This happens through "scope chaining". When a scope tries to find a reference it will first try to look for it in its current scope. If the reference cannot be found in the current scope, it will try to look into the parent scope to find it. If it can't be found there, it will look into _that_ scope's parent scope. This continues until the reference is found or until the outermost (a.k.a. "global") scope is reached. If a reference can't be found in this "chain" of scopes, a `ReferenceError` will be thrown.
+
+You can think of it of trying to find references "upwards", towards global scope.
+
+```javascript
+/* Global scope */
+const inGlobalScope = "foo"
+
+;(function createAFunctionScope() {
+  /* Scope change: defining a new funciton scope */
+  const inFunctionScope = "bar"
+
+  console.log(inGlobalScope) // found in the global scope
+  // => foo
+  console.log(inFunctionScope) // found in the current scope
+  // => baz
+
+  {
+    /* Scope change: defining a new block scope */
+
+    const inBlockScope = "baz"
+
+    console.log(inGlobalScope) // found in the global scope
+    // => foo
+    console.log(inFunctionScope) // will find "foo" in the parent scope
+    // => bar
+    console.log(inBlockScope) // found in the current scope
+    // => baz
+  }
+
+  /* Scope change: no longer in block scope, back in the function scope */
+  console.log(inGlobalScope) // found in the global scope
+  // => foo
+  console.log(inFunctionScope) // found in the current scope
+  // => bar
+  console.log(inBlockScope) // not in current scope or any of the parent scopes
+  // => ReferenceError
+})()
+```
+
+## Closure
+
+Functions can be used in a different context than the context they were declared in. In their original context, a function may have had access to constants or other functions that were defined outside of the function (i.e. in the function's parent scopes). For the function to work as expected, it's necessary to take a snapshot of scope at the time that the function is defined that the function can reference when it gets called in another context.
+
+A "snapshot" of scope is called a **closure** and the verb we use for "creating a closure is to **close** e.g. We "close" over a function to preserve references to variables that are outside of the function.
+
+```javascript
+// Function that creates another function
+function buildErrorLogFunction() {
+  const errorPrefix = "[ERROR] " // Note that this variable is defined outside of the fn function.
+
+  return function fn(msg) {
+    // errorPrefix is copied into fn's closure so that it's available when logError gets called.
+    console.log(errorPrefix + msg)
+  }
+}
+
+const logError = buildErrorLogFunction()
+logError("This is fine.")
+// => [ERROR] This is fine.
+```
+
+It's important to note that a closure can be created for other cases than when a function is defined. Any time we snapshot scope for use in a different context, we're creating a closure.

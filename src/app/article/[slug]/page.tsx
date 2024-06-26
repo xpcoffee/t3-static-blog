@@ -1,19 +1,9 @@
 import Markdown from "markdown-to-jsx";
 import {
-  getMarkdownContent,
   getMarkdownContentForSlug,
+  getMarkdownContentSlugs,
 } from "~/utils/markdownUtils";
-
-const POSTS_DIR = "src/posts";
-
-export const generateStaticParams = async () => {
-  const posts = getMarkdownContent(POSTS_DIR);
-
-  // this has to return just the slug; cannot return post contents
-  return posts.map((post) => ({
-    slug: post.frontMatter.slug,
-  }));
-};
+import { MDXRemote } from "next-mdx-remote/rsc";
 
 type Props = {
   // there has to be a more sane way of typechecking static params.....
@@ -22,12 +12,19 @@ type Props = {
 
 export default ({ params }: Props) => {
   const slug = params.slug;
-  const article = getMarkdownContentForSlug(POSTS_DIR, slug);
+  const article = getMarkdownContentForSlug(slug);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      Hello blank article
-      <Markdown>{article.content}</Markdown>
-    </main>
+    <article className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
+      <h1>{article.frontMatter.title}</h1>
+      <MDXRemote source={article.content} />
+    </article>
   );
+};
+
+/**
+ * Tells nextjs which slugs should be rendered statically.
+ */
+export const generateStaticParams = async () => {
+  return getMarkdownContentSlugs().map((slug) => ({ slug }));
 };
