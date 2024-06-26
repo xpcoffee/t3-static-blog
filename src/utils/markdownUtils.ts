@@ -46,7 +46,8 @@ export type FrontMatter = {
   title: string;
   description: string;
   faIcon: string;
-  lastEdit: string;
+  date: Date;
+  lastEdit: Date;
 };
 
 function toFrontMatter(data: Record<string, any>): FrontMatter {
@@ -55,7 +56,8 @@ function toFrontMatter(data: Record<string, any>): FrontMatter {
     title: data["title"] ?? "unknown article",
     description: data["description"] ?? "unknown description",
     faIcon: data["faIcon"] ?? "faHome",
-    lastEdit: data["lastEdit"] ?? "unknown description",
+    date: data["date"] ?? new Date(),
+    lastEdit: data["lastEdit"] ?? new Date(),
   };
 }
 
