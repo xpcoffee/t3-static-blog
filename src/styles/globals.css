@@ -27,7 +27,7 @@ h2 {
 }
 
 h3 {
-  @apply quicksand mb-4 mt-8 text-xl font-bold text-gray-700 dark:text-gray-300;
+  @apply quicksand mb-4 mt-8 text-xl text-gray-700 dark:text-gray-300;
 }
 
 h4 {

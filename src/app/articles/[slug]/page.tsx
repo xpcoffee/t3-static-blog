@@ -13,6 +13,7 @@ import { Disclaimer } from "~/app/components/Disclaimer";
 import { PatternArticleList } from "~/app/components/PatternArticleList";
 import { ModalScale } from "~/app/components/Scale";
 import IconCheckCircle from "~/app/components/IconCheckCircle";
+import remarkGfm from "remark-gfm";
 
 type Props = {
   // there has to be a more sane way of typechecking static params.....
@@ -23,6 +24,9 @@ export default ({ params }: Props) => {
   const slug = params.slug;
   const article = getMarkdownContentForSlug(slug);
   const icon = getIcon(article.frontMatter?.faIcon);
+  const mdxOptions = {
+    mdxOptions: { remarkPlugins: [remarkGfm] },
+  };
 
   return (
     <Layout>
@@ -31,7 +35,11 @@ export default ({ params }: Props) => {
           {icon}
           {article.frontMatter.title}
         </h1>
-        <MDXRemote source={article.content} components={components} />
+        <MDXRemote
+          source={article.content}
+          components={components}
+          options={mdxOptions}
+        />
       </article>
     </Layout>
   );
