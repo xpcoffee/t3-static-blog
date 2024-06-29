@@ -7,6 +7,7 @@ import { AboutLink } from "./AboutLink";
 import { EmojiLogo } from "./EmojiLogo";
 import { ThisIsMySite } from "./TagLine";
 import { Title } from "./Title";
+import Link from "next/link";
 
 /**
  * On smaller screens, the layout is verticle (single column grid)
@@ -39,12 +40,16 @@ const Layout = ({
           className="order-1 justify-self-center md:col-span-2 md:col-start-2 md:col-end-2 md:row-start-1 md:row-end-1 md:self-center md:justify-self-start"
           titleText={title}
         />
-        <img
-          className="order-2  justify-self-center md:col-start-3 md:col-end-3 md:row-start-1 md:row-end-1 dark:rounded-full dark:border-2 dark:border-slate-300"
-          alt="xpcoffee icon"
-          style={{ height: "45px" }}
-          src="/xpcoffee-icon.svg"
-        />
+        <Link
+          className="order-2 justify-self-center md:col-start-3 md:col-end-3 md:row-start-1 md:row-end-1 dark:rounded-full dark:border-2 dark:border-slate-300"
+          href="/"
+        >
+          <img
+            alt="xpcoffee icon"
+            style={{ height: "45px" }}
+            src="/xpcoffee-icon.svg"
+          />
+        </Link>
         <ThisIsMySite className="order-3 md:col-start-3 md:col-end-3 md:row-start-4 md:row-end-4 md:self-center" />
         <hr className="hidden md:col-start-2 md:col-end-5 md:row-start-2 md:row-end-2 md:block"></hr>
         {toolPanelContents && (
