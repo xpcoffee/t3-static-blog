@@ -5,6 +5,7 @@ Testing out building a static blog using NextJS. Don't use this as a reference; 
 Notes (most recent at the top)
 - I don't see a standard plugin for deploying to S3 static sites (surprising, would have expected there to be a community around this style of site). Ended up writing my own.
 - there's no routing to dynamic routes in a static export (!); that means I either need to render everything as a /path/index.html OR have custom routing at the S3 bucket layer...
+    - this will compound if there are multiple URLs e.g. a permalink with a uuid and a readable slug; either double the routes or double the pages...
 - type checking and linting from t3 app is really good. I've learned a few things (e.g. annotation as void for promises and marking individual imports as types); it's also caught a couple minor bugs. Thanks, t3!
 - ts-node swapped out for tsx; very surprised that it doesn't work well out of the box for ESM
 - lots of small papercuts, but really quite easy to fix them incrementally; the migration to NextJS will be worth it if this ease of change keeps up
