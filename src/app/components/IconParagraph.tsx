@@ -8,7 +8,7 @@ type Props = PropsWithChildren<{
 
 const IconParagraph: FC<Props> = ({ icon, header, children }) => {
   return (
-    <p>
+    <>
       {header ? (
         <b>
           {getIcon(icon)}
@@ -18,7 +18,7 @@ const IconParagraph: FC<Props> = ({ icon, header, children }) => {
         <b>{getIcon(icon)}</b>
       )}
       {children}
-    </p>
+    </>
   );
 };
 

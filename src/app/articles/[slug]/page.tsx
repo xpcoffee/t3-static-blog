@@ -6,6 +6,8 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Card from "~/app/components/Card";
 import { Layout } from "~/app/components/Layout";
 import { getIcon } from "~/utils/fontAwesome";
+import IconParagraph from "~/app/components/IconParagraph";
+import Link from "next/link";
 
 type Props = {
   // there has to be a more sane way of typechecking static params.....
@@ -40,4 +42,6 @@ export const generateStaticParams = async () => {
 
 const components = {
   Card: Card,
+  IconParagraph: IconParagraph,
+  Link: Link,
 };
