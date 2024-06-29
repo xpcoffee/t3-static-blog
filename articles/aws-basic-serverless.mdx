@@ -7,9 +7,6 @@ lastEdit: 2019-06-01
 guid: f7fef9c2-8f6d-48ad-aef8-e7b258ec794d
 ---
 
-import GeneralArchitecture from "./images/serverless-site-with-cdn-auth-general.svg"
-import AWSArchitecture from "./images/serverless-site-with-cdn-auth-aws.svg"
-
 ## The general pattern
 
 The idea is to put some <a title="ability to run code">compute</a> in front of your <a title="A website that runs and renders entirely in the browser, as opposed to sites which, traditionally, get rendered on a server and only then are displayed in the browser.">serverless website</a> CDN that has the ability to reject requests before they hit the CDN. This has become possible via offerings like [AWS Lambda@Edge](https://docs.aws.amazon.com/lambda/latest/dg/lambda-edge.html) and [CloudFlare Workers](https://www.cloudflare.com/products/cloudflare-workers/).
@@ -20,7 +17,7 @@ expensive (long execution times, so higher costs and higher latency). Alternativ
 call out to one or more dedicated authentication and authorization servers, then
 act according to the response.
 
-<GeneralArchitecture />
+![general architecture](/images/serverless-site-with-cdn-auth-general.svg)
 
 ## Example with AWS
 
@@ -33,4 +30,4 @@ Here are some real-world building blocks:
 
 The compute and CDN come together, but other than that, you can swap out any component for another equivalent (e.g. you could replace Lambda@Edge and CloudFront with CloudFlare Workers and CDN respectively).
 
-<AWSArchitecture />
+![aws architecture](/images/serverless-site-with-cdn-auth-aws.svg)
