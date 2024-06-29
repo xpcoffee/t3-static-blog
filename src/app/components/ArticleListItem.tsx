@@ -27,7 +27,7 @@ const ArticleListItem = ({
 
   const lastEditSubtext = lastEdit ? (
     <span className="text-sm text-gray-600 dark:text-gray-400">
-      Last edit: {`${lastEdit.toString()}`}
+      {`Last edit: ${lastEdit.getFullYear()}-${lastEdit.getMonth()}-${lastEdit.getDate()} `}
     </span>
   ) : undefined;
 
