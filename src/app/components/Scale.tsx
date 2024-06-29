@@ -8,8 +8,8 @@ type Note = (typeof NOTES)[number] & {
   accidental: number;
 };
 
-function toNote(noteString: string): Note {
-  const [noteName, ...modifiers] = noteString.split("");
+function toNote(noteString: string | undefined): Note {
+  const [noteName, ...modifiers] = noteString?.split("") ?? ["unknown"];
   const modifierSymbol = modifiers[0] === "#" ? 1 : -1;
   const modifierValue = modifiers.length * modifierSymbol;
   const note = NOTES.find(({ name }) => name === noteName?.toUpperCase());
@@ -121,9 +121,15 @@ function getModalScale(scaleDegree: number, key: Note): string[] {
     let currentModifier = key.accidental;
     for (let i = 0; i < scaleBase.length - 1; i++) {
       const note = scaleBase[i + 1];
-      const intervalsForward = structure[i];
+      const intervalsForward = structure[i] ?? 0;
       currentModifier =
-        currentModifier + intervalsForward - note.intervalFromPreviousNote;
+        currentModifier +
+        intervalsForward -
+        (note?.intervalFromPreviousNote ?? 0);
+
+      if (note === undefined) {
+        throw "note undefined";
+      }
 
       scale.push(
         toNoteString({
@@ -239,13 +245,13 @@ const ModalScale = () => {
       <div className="overflow-x-auto">
         <table className="mt-8 table-fixed">
           <caption>
-            {MODES[scaleDegree].name} in the key of {toNoteString(key)}
+            {MODES[scaleDegree]?.name} in the key of {toNoteString(key)}
           </caption>
           <thead>
             <tr>
               <td></td>
               {["I", "II", "III", "IV", "V", "VI", "VII"].map((val) => (
-                <td>{val}</td>
+                <td key={val}>{val}</td>
               ))}
             </tr>
           </thead>
@@ -253,25 +259,25 @@ const ModalScale = () => {
             <tr>
               <td>root</td>
               {modalScale.map((val) => (
-                <td>{val}</td>
+                <td key={"root-" + val}>{val}</td>
               ))}
             </tr>
             <tr>
               <td>triad third</td>
               {modalScaleThird.map((val) => (
-                <td>{val}</td>
+                <td key={"triad-" + val}>{val}</td>
               ))}
             </tr>
             <tr>
               <td>triad fifth</td>
               {modalScaleFifth.map((val) => (
-                <td>{val}</td>
+                <td key={"fifth-" + val}>{val}</td>
               ))}
             </tr>
             <tr>
               <td>diatonic chord</td>
               {chordNames.map((val) => (
-                <td>{val}</td>
+                <td key={"chord-" + val}>{val}</td>
               ))}
             </tr>
           </tbody>

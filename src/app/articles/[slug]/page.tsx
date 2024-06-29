@@ -17,6 +17,7 @@ import { PullQuote } from "~/app/components/Pullquote";
 import { Disclaimer } from "~/app/components/Disclaimer";
 import { PatternArticleList } from "~/app/components/PatternArticleList";
 import { ModalScale } from "~/app/components/Scale";
+import Image from "next/image";
 import IconCheckCircle from "~/app/components/IconCheckCircle";
 
 type Props = {
@@ -24,7 +25,7 @@ type Props = {
   params: { slug: string };
 };
 
-export default ({ params }: Props) => {
+const Article = ({ params }: Props) => {
   const slug = params.slug;
   const article = getMarkdownContentForSlug(slug);
   const icon = getIcon(article.frontMatter?.faIcon);
@@ -53,6 +54,8 @@ export default ({ params }: Props) => {
   );
 };
 
+export default Article;
+
 /**
  * Tells nextjs which slugs should be rendered statically.
  */
@@ -65,6 +68,7 @@ const components = {
   Card: Card,
   IconParagraph: IconParagraph,
   Link: Link,
+  Image: Image,
   PullQuote: PullQuote,
   Disclaimer: Disclaimer,
   PatternArticleList: PatternArticleList,

@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { getMarkdownMetadata } from "~/utils/markdownUtils";
 import { ArticleListItem } from "./ArticleListItem";
 

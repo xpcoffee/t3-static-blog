@@ -3,7 +3,6 @@ import Link from "next/link";
 
 const Title = ({
   titleText,
-  iconUrl,
   className,
 }: {
   titleText: string;

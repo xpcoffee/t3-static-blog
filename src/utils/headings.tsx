@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from "react";
+import React, { type FC, type PropsWithChildren } from "react";
 
 export type HeadingData = {
   value: string;
@@ -86,7 +86,7 @@ function buildHeadingTree(headings: HeadingData[]): HeadingTreeNode {
 
   let currentNode = rootNode;
 
-  for (let heading of headings) {
+  for (const heading of headings) {
     const newNode: HeadingTreeNode = {
       value: heading.value,
       children: [],

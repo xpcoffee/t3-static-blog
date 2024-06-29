@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FrontMatter } from "~/utils/markdownUtils";
+import { type FrontMatter } from "~/utils/markdownUtils";
 
 type Props = FrontMatter & { slug: string };
 

@@ -1,6 +1,6 @@
-import React, { FC, PropsWithChildren } from "react";
-import { HeadingData, renderHeadings } from "~/utils/headings";
-import { ArticleHeading } from "./articleHeading";
+import { type FC, type PropsWithChildren } from "react";
+import { type HeadingData, renderHeadings } from "~/utils/headings";
+import { ArticleHeading } from "./ArticleHeading";
 
 type Props = PropsWithChildren<{ headings: HeadingData[]; depth?: number }>;
 

@@ -50,14 +50,23 @@ export type FrontMatter = {
   lastEdit: Date;
 };
 
-function toFrontMatter(data: Record<string, any>): FrontMatter {
+function toFrontMatter(data: Record<string, unknown>): FrontMatter {
   return {
-    id: data["id"] ?? "404-id-not-found",
-    title: data["title"] ?? "unknown article",
-    description: data["description"] ?? "unknown description",
-    faIcon: data["faIcon"] ?? "faHome",
-    date: data["date"] ?? new Date(),
-    lastEdit: data["lastEdit"] ?? new Date(),
+    id: typeof data.id == "string" ? data.id : "404-id-not-found",
+    title: typeof data.title == "string" ? data.title : "unknown article",
+    description:
+      typeof data.description == "string"
+        ? data.description
+        : "unknown description",
+    faIcon: typeof data.faIcon == "string" ? data.faIcon : "faHome",
+    date:
+      typeof data.date == "object" && data.date instanceof Date
+        ? data.date
+        : new Date(),
+    lastEdit:
+      typeof data.lastEdit == "object" && data.lastEdit instanceof Date
+        ? data.lastEdit
+        : new Date(),
   };
 }
 

@@ -1,6 +1,6 @@
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { PropsWithChildren } from "react";
+import React, { type PropsWithChildren } from "react";
 
 const Disclaimer = ({
   children,
@@ -20,4 +20,3 @@ const Disclaimer = ({
 };
 
 export { Disclaimer };
-

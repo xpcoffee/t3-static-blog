@@ -1,12 +1,13 @@
 import React, { useMemo } from "react";
 import { Layout } from "~/app/components/Layout";
 import Link from "next/link";
+import Image from "next/image";
 
 const AboutPage = () => {
   const showSnek = useMemo(() => Math.floor(Date.now() / 1000) % 5 > 2, []);
   const image = useMemo(() => {
     return showSnek ? (
-      <img
+      <Image
         alt="a snek"
         className="my-5 rounded-3xl"
         height={150}
@@ -14,7 +15,7 @@ const AboutPage = () => {
         src="/images/angry-snek.jpg"
       />
     ) : (
-      <img
+      <Image
         alt="picture of Emerick Bosch"
         className="my-5 rounded-3xl"
         height={150}

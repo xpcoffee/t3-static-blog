@@ -8,6 +8,7 @@ import { EmojiLogo } from "./EmojiLogo";
 import { ThisIsMySite } from "./TagLine";
 import { Title } from "./Title";
 import Link from "next/link";
+import Image from "next/image";
 
 /**
  * On smaller screens, the layout is verticle (single column grid)
@@ -44,7 +45,7 @@ const Layout = ({
           className="order-2 justify-self-center md:col-start-3 md:col-end-3 md:row-start-1 md:row-end-1 dark:rounded-full dark:border-2 dark:border-slate-300"
           href="/"
         >
-          <img
+          <Image
             alt="xpcoffee icon"
             style={{ height: "45px" }}
             src="/xpcoffee-icon.svg"

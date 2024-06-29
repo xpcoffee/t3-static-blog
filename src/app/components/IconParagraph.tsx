@@ -1,5 +1,5 @@
-import React, { FC, PropsWithChildren, ReactNode } from "react";
-import { getIcon, FAIcon } from "~/utils/fontAwesome";
+import React, { type FC, type PropsWithChildren, type ReactNode } from "react";
+import { getIcon, type FAIcon } from "~/utils/fontAwesome";
 
 type Props = PropsWithChildren<{
   icon: FAIcon;
