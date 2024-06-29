@@ -34,7 +34,7 @@ const Layout = ({
 
   return (
     <div id="app-layout" className="flex justify-center">
-      <div className="md:grid-desktop my-5 grid flex-1 grid-cols-1 gap-5 overflow-y-scroll">
+      <div className="grid-device md:grid-desktop my-5 grid flex-1 gap-5 overflow-y-scroll">
         <title>{title}</title>
         <Title
           className="order-1 justify-self-center md:col-span-2 md:col-start-2 md:col-end-2 md:row-start-1 md:row-end-1 md:self-center md:justify-self-start"

@@ -87,6 +87,11 @@ details summary > * {
   display: inline;
 }
 
+.grid-device {
+  grid-template-rows: min-content min-content min-content 1fr min-content min-content min-content;
+  grid-template-columns: 1fr;
+}
+
 @media (min-width: 768px) {
   .md\:grid-desktop {
     grid-template-rows: auto auto 1fr auto;
