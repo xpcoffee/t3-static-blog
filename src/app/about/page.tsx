@@ -14,7 +14,8 @@ const AboutPage = () => {
         className="my-5 rounded-3xl"
         height={150}
         width={150}
-        src="/images/angry-snek.jpg"
+        src=""
+        overrideSrc="/images/angry-snek.jpg"
       />
     ) : (
       <Image
@@ -22,7 +23,8 @@ const AboutPage = () => {
         className="my-5 rounded-3xl"
         height={150}
         width={150}
-        src="/images/emerick-bosch.jpg"
+        src=""
+        overrideSrc="/images/emerick-bosch.jpg"
       />
     );
   }, [showSnek]);
