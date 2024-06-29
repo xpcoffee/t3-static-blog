@@ -9,7 +9,7 @@ Notes (most recent at the top)
 - type checking and linting from t3 app is really good. I've learned a few things (e.g. annotation as void for promises and marking individual imports as types); it's also caught a couple minor bugs. Thanks, t3!
 - ts-node swapped out for tsx; very surprised that it doesn't work well out of the box for ESM
 - lots of small papercuts, but really quite easy to fix them incrementally; the migration to NextJS will be worth it if this ease of change keeps up
-- The rehype ecosystem has some cool packages, but not many stars/follows which is weird (expected huge amounts of usage...)
+- The rehype ecosystem has some cool packages, but not many stars/follows which is weird (expected large amounts of usage for the main recommended markdown processing tools)
 - rehype-prism falls over for typescript files (?!) even thought they say they support it. moving to rehype-prism-plus fixed this
 - MDX remote makes things pretty nice
 - Currently need to read markdown content twice: 1 for static props and 1 to render the page (not great..)
