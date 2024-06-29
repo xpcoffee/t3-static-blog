@@ -73,6 +73,19 @@ async function collectFilesToDeploy() {
   return files;
 }
 
+/**
+ * Enables site routes to work as expected; otherwise you need to add .html to everything
+ */
+function removeHtmlSuffix(fileName: string) {
+  if (fileName.endsWith("index.html")) {
+    return fileName; // indexes work as expected
+  }
+  if (fileName.endsWith(".html")) {
+    return fileName.substring(0, fileName.length - ".html".length);
+  }
+  return fileName;
+}
+
 const deploy = async () => {
   const s3 = new S3(getS3Config());
   const spinner = ora("Deploying site to S3").start();
@@ -145,8 +158,10 @@ const deploy = async () => {
   }
 
   const uploadFile = async (filePath: string, retry = 0) => {
+    const key = removeHtmlSuffix(path.relative(config.distFolder, filePath));
+
     const opts = {
-      Key: path.relative(config.distFolder, filePath),
+      Key: key,
       Bucket: config.bucketName,
       Body: createReadStream(filePath),
       ContentType: mime.lookup(filePath) || undefined,
@@ -226,9 +241,9 @@ const deploy = async () => {
 
   await uploadFiles(files);
 
-  const expectedFiles = files.map((filePath) =>
-    path.relative(config.distFolder, filePath),
-  );
+  const expectedFiles = files
+    .map((filePath) => path.relative(config.distFolder, filePath))
+    .map(removeHtmlSuffix);
   await validateUpload(expectedFiles);
 
   spinner.stopAndPersist({
