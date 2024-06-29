@@ -9,6 +9,12 @@ import { ThisIsMySite } from "./TagLine";
 import { Title } from "./Title";
 import Link from "next/link";
 import Image from "next/image";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
+// Load fortawesome to prevent icons flashing on load
+// https://github.com/FortAwesome/react-fontawesome/issues/234
+config.autoAddCss = false;
 
 /**
  * On smaller screens, the layout is verticle (single column grid)
