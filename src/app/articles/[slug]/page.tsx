@@ -1,19 +1,23 @@
+import "~/styles/prism.css";
+
+import Link from "next/link";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
+import rehypeMdxCodeProps from "rehype-mdx-code-props";
+import rehypePrismPlus from "rehype-prism-plus";
 import {
   getMarkdownContentForSlug,
   getMarkdownContentSlugs,
 } from "~/utils/markdownUtils";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import Card from "~/app/components/Card";
 import { Layout } from "~/app/components/Layout";
 import { getIcon } from "~/utils/fontAwesome";
 import IconParagraph from "~/app/components/IconParagraph";
-import Link from "next/link";
 import { PullQuote } from "~/app/components/Pullquote";
 import { Disclaimer } from "~/app/components/Disclaimer";
 import { PatternArticleList } from "~/app/components/PatternArticleList";
 import { ModalScale } from "~/app/components/Scale";
 import IconCheckCircle from "~/app/components/IconCheckCircle";
-import remarkGfm from "remark-gfm";
 
 type Props = {
   // there has to be a more sane way of typechecking static params.....
@@ -25,7 +29,11 @@ export default ({ params }: Props) => {
   const article = getMarkdownContentForSlug(slug);
   const icon = getIcon(article.frontMatter?.faIcon);
   const mdxOptions = {
-    mdxOptions: { remarkPlugins: [remarkGfm] },
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [rehypeMdxCodeProps, rehypePrismPlus],
+      tsx: true,
+    },
   };
 
   return (
