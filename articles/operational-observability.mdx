@@ -45,7 +45,7 @@ These signals are what should trigger alarms.
 They should be explicitly designed they should have a high signal/noise ratio.
 You should also be able to use these metrics to confirm recovery once the issue has been mitigated.
 
-![health signals in context of a system](./images/health-signals.png)
+![health signals in context of a system](/images/health-signals.png)
 
 These metrics do not tell you what caused the issue and they don't tell you how to fix it. They just detect the presence of an issue.
 
@@ -64,7 +64,7 @@ Examples:
 These metrics surface a (usually recent) history your system's behaviour.
 They are used to help _locate_ where errors are being thrown in your system, help _diagnose_ the issue, and help _confirm_ that actions made against the service are affecting behaviour as expected.
 
-![diagnostic metrics in context of a system](./images/diagnostic-metrics.png)
+![diagnostic metrics in context of a system](/images/diagnostic-metrics.png)
 
 Examples:
 
@@ -86,7 +86,7 @@ They are often diagnostic metrics on which you can set up a threshhold because y
 Because of this, they often have a lower signal/noise ratio. You want to hook up alerts to these, but usually of lower severity than health metrics.
 These alerts should trigger investigations rather than fire-fighting.
 
-![scaling signals in context of a system](./images/scaling-signals.png)
+![scaling signals in context of a system](/images/scaling-signals.png)
 
 Examples:
 
@@ -103,7 +103,7 @@ Examples:
 These are records of the individual actions taken by _your systems_ when fulfilling a customer request.
 These help to track a request through multiple systems to determine where an issue occurred or to gain insight into your global system behaviour.
 
-![distributed trace in context of a system](./images/distributed-trace.png)
+![distributed trace in context of a system](/images/distributed-trace.png)
 
 ### Event logs
 
@@ -114,7 +114,7 @@ These help to track a request through multiple systems to determine where an iss
 These logs help you diagnose ongoing/recent issues or build insight into your system's behaviour.
 Retention of these logs needs to be long enough to help you diagnose events in the recent past (for me that's 3-6 months).
 
-![event logs in the context of a system](./images/investigation-logs.png)
+![event logs in the context of a system](/images/investigation-logs.png)
 
 <div className="text-center">
   <i>
@@ -141,7 +141,7 @@ Retention of these logs should be long enough to cover legal responsibilities e.
 These are records of individual actions taken by a customer during a workflow.
 They help you build insight in how your product is being used and where customers are potentially losing interest/getting stuck/taking too long.
 
-![event logs in the context of a system](./images/customer-tracing.png)
+![event logs in the context of a system](/images/customer-tracing.png)
 
 Example questions that traces can help answer:
 
@@ -155,7 +155,7 @@ Example questions that traces can help answer:
 These are analytical investigations or workflows which aggregate and process many customer traces to gain insight across multiple customers.
 They help identify groups of usecases and customer personas to which you can tailor your experiences.
 
-![customer analytics in the context of a system](./images/customer-analytics.png)
+![customer analytics in the context of a system](/images/customer-analytics.png)
 
 Examples results for analytical workflows:
 

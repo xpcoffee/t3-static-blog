@@ -24,13 +24,13 @@ There are 2 core ideas to consider when thinking about a service's ability to se
 
 A spike in demand against the service will often cause a spike in the resource usage/load on the service. These spikes can occur at any time and - if the service is not prepared or protected - the resulting "load spike" on the service can overwhelm and take down the service.
 
-![without throttling](./images/without-throttling.png)
+![without throttling](/images/without-throttling.png)
 
 ## Selectively shedding load
 
 In practice, events which cause load spikes often have a hot-spot e.g. a load spike event was caused when users were linked to a page from a popular Reddit post. Hotspots allow us to classify problematic load: we can distinguish traffic going to the hotspot from traffic going to other pages on the website. Once classified, we can limit the amount of requests we serve for a particular class, hopefully preventing the service from being overloaded.
 
-![with throttling](./images/with-throttling.png)
+![with throttling](/images/with-throttling.png)
 
 So, what do we need to do to throttle? We need 4 things:
 
@@ -41,7 +41,7 @@ So, what do we need to do to throttle? We need 4 things:
 
 `Example:` We decide to throttle calls when user12314 (axis) downloads more than 750MB of data (aggregation and limit) in 10 seconds (period).
 
-![throttling example](./images/throttling-example.png)
+![throttling example](/images/throttling-example.png)
 
 ## Limitations
 
