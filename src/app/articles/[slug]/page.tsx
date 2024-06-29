@@ -11,6 +11,8 @@ import Link from "next/link";
 import { PullQuote } from "~/app/components/Pullquote";
 import { Disclaimer } from "~/app/components/Disclaimer";
 import { PatternArticleList } from "~/app/components/PatternArticleList";
+import { ModalScale } from "~/app/components/Scale";
+import IconCheckCircle from "~/app/components/IconCheckCircle";
 
 type Props = {
   // there has to be a more sane way of typechecking static params.....
@@ -50,4 +52,6 @@ const components = {
   PullQuote: PullQuote,
   Disclaimer: Disclaimer,
   PatternArticleList: PatternArticleList,
+  IconCheckCircle: IconCheckCircle,
+  ModalScale: ModalScale,
 };
