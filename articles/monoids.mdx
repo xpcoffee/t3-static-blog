@@ -26,7 +26,7 @@ a grouping of items that can be composed; an operation that you can use to compo
 
 To build an intuitive understanding of how this system works, we'll look at each part of the system and how it can be used to compose LEGO bricks together into a larger structure.
 
-<span className="quicksand text-sm">
+<span className="text-sm">
   Disclaimer: Please note that LEGO® is a trademark of the LEGO Group of
   companies which does not sponsor, authorize or endorse this site. I'm using
   LEGO bricks here mainly to help build up an intuition around the subject using
@@ -40,8 +40,8 @@ To build an intuitive understanding of how this system works, we'll look at each
 Lets start with a set of blocks that we want to compose together:
 
 
-<figure>
-![](./images/so-you-want-to-compose.png)
+<figure className="flex flex-col items-center">
+<img src="/images/so-you-want-to-compose.png" />
 </figure>
 
 First up, we need an operation that can compose just two elements.
@@ -50,8 +50,8 @@ clips the first block on top of the second block.
 This operation that can compose two elements is called **the monoidal product**
 and we'll use the symbol **⊗** represent this composition e.g. using the monoidal product to compose A and B into C is written like this `A ⊗ B = C`
 
-<figure>
-![](./images/monoidal-product.png)
+<figure className="flex flex-col items-center">
+<img src="/images/monoidal-product.png" />
 </figure>
 
 For our product to work consistently, we also need to consider the blocks themselves. Notice how the LEGO blocks share attributes that allow them to be composed together: they have studs on the top and a structure on the bottom that can clip onto studs.
@@ -76,8 +76,8 @@ This conceptually allows us to keep composing items together infinitely.
   the output of an operation isn't always the same type as the inputs.
 </span>
 
-<figure>
-![](./images/further-composed.png)
+<figure className="flex flex-col items-center">
+<img src="/images/further-composed.png" />
 <figcaption>First condition for a monoid: we need a **monoidal product** that **takes two items in a set** and **returns an item in the same set**.</figcaption>
 </figure>
 
@@ -87,16 +87,16 @@ We now have the core of a system that allows composability, but we need to defin
 
 The first of these is that we want to be able to perform compositions in any order. The picture below shows how two different composition orders for `A ⊗ B ⊗ C ⊗ D` result in the same end composition.
 
-<figure>
-![](./images/associativity.png)
+<figure className="flex flex-col items-center">
+<img src="/images/associativity.png" />
 </figure>
 
 Why is this a useful property to have in our system? It allows us to break up work. For example: if you have multiple people helping you build `(A ⊗ B) ⊗ (C ⊗ D)`, you can have person 1 do `(A ⊗ B)`, person 2 can do `(C ⊗ D)` and person 3 can take the results from person 1 and person 2 and compose them together into the final result. This is the key principle behind assembly lines in factories and parallel processing in software systems. This property of not caring for which operation is performed first is called **associativity**.
 
 An important note here that the "position" of the items still makes a difference: `A ⊗ B` is not the same as `B ⊗ A`. The above is about the order in which you perform the monoidal product.
 
-<figure>
-![](./images/ab-not-ba.png)
+<figure className="flex flex-col items-center">
+<img src="/images/ab-not-ba.png" />
 <figcaption>Second condition for a monoid: the monoidal product must be **associative**.</figcaption>
 </figure>
 
