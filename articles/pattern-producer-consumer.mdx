@@ -7,9 +7,6 @@ lastEdit: 2022-01-17
 guid: 180dfc7a-7db1-424c-959e-acc26a4fbd19
 ---
 
-import Link from 'next/link";
-import ProducerConsumerSequenceDiagram from "./images/producer-consumer-sequence.svg"
-
 <div>
   <b>TLDR</b> "Producer" and "consumer" form a{" "}
   <Link href="/articles/patterns">pattern</Link> which enables systems to decouple
@@ -36,16 +33,18 @@ Split the system into two roles:
 1. One or more **producers** create work and place it into some storage e.g. a queue.
 1. One or more **consumers** fetch work requests from the storage and perform the work.
 
-<div className="mb-5">
-  <ProducerConsumerSequenceDiagram />
-</div>
+<figure className="flex flex-col items-center">
+![](/images/producer-consumer-sequence.svg)
+</figure>
 
 This allows systems to scale producers and consumers independently of one another.
 The producers and consumers also don't care about implementation details;
 you can have a mix of different types of consumers and producers as long as they all speak to
 the same message bus and respect a common definition for messages.
 
-![simple architecture diagrams for producer-consumer patterns](./images/producer-consumer.png)
+<figure className="flex flex-col items-center">
+![simple architecture diagrams for producer-consumer patterns](/images/producer-consumer.png)  
+</figure>
 
 **Key characteristics**
 
