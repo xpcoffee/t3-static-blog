@@ -44,7 +44,7 @@ const ArticleListItem = ({
         href={`/articles/${articlePath}`}
       >
         <div className="flex flex-col">
-          <div>
+          <div className="font-serif">
             {icon}
             {title ?? "untitled"}
           </div>
