@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useMemo } from "react";
 import { Layout } from "~/app/components/Layout";
 import Link from "next/link";

@@ -95,7 +95,7 @@ details summary > * {
 @media (min-width: 768px) {
   .md\:grid-desktop {
     grid-template-rows: auto auto 1fr auto;
-    grid-template-columns: 1fr 300px auto 300px 1fr;
+    grid-template-columns: 1fr 300px 1fr 300px 1fr;
   }
 
   /* Remove scrollbar jitter*/
