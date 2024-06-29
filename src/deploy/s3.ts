@@ -2,7 +2,7 @@ import ora from "ora";
 import chalk from "chalk";
 import {
   type ObjectIdentifier,
-  PutObjectCommandOutput,
+  type PutObjectCommandOutput,
   S3,
 } from "@aws-sdk/client-s3";
 import { fromIni } from "@aws-sdk/credential-provider-ini";
@@ -24,11 +24,21 @@ const getS3Config = () => {
 
   const logger = process.env.MUTE_AWS_LOGGER
     ? {
-        trace: () => {},
-        debug: () => {},
-        info: () => {},
-        warn: () => {},
-        error: () => {},
+        trace: () => {
+          /* noop */
+        },
+        debug: () => {
+          /* noop */
+        },
+        info: () => {
+          /* noop */
+        },
+        warn: () => {
+          /* noop */
+        },
+        error: () => {
+          /* noop */
+        },
       }
     : undefined;
 
@@ -68,7 +78,7 @@ const deploy = async () => {
   const spinner = ora("Deploying site to S3").start();
 
   const listBucketObjectKeys = async (
-    symbol: string = "🔎",
+    symbol = "🔎",
   ): Promise<ObjectIdentifier[]> => {
     const bucketContentsSpinner = ora("Listing bucket contents").start();
     const bucketObjects: ObjectIdentifier[] = [];
@@ -145,7 +155,7 @@ const deploy = async () => {
     try {
       return await s3.putObject(opts);
     } catch (err) {
-      console.log("error on" + filePath);
+      console.log(`error on ${filePath}`);
       // Retry on throttles
       if (err && typeof err == "object" && "name" in err) {
         if (err.name === "SlowDown" && retry < 3) {
@@ -153,7 +163,6 @@ const deploy = async () => {
           return await uploadFile(filePath, retry + 1);
         }
       }
-      console.log("Problem " + err);
       throw err;
     }
   };
@@ -164,7 +173,7 @@ const deploy = async () => {
     // explicitly pass the filename in, otherwise the index messes with the retry counter
     const uploads = files.map((fileName) => uploadFile(fileName));
 
-    let results: PutObjectCommandOutput[] = [];
+    const results: PutObjectCommandOutput[] = [];
     return Promise.all(uploads)
       .then((promiseResults) => results.push(...promiseResults))
       .then(() => uploadSpinner.succeed("Contents uploaded"))
@@ -182,9 +191,9 @@ const deploy = async () => {
       (identifier) => identifier.Key,
     );
 
-    let expectedFilesNotInS3 = new Set(expectedFiles);
-    let unexpectedFilesInS3 = new Set(actualFiles);
-    for (let expectedKey of expectedFilesNotInS3) {
+    const expectedFilesNotInS3 = new Set(expectedFiles);
+    const unexpectedFilesInS3 = new Set(actualFiles);
+    for (const expectedKey of expectedFilesNotInS3) {
       if (unexpectedFilesInS3.has(expectedKey)) {
         expectedFilesNotInS3.delete(expectedKey);
         unexpectedFilesInS3.delete(expectedKey);
