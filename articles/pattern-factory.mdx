@@ -7,9 +7,7 @@ lastEdit: 2021-12-24
 guid: 1b5bd28f-8b40-429c-b792-7a5dc15116f8
 ---
 
-import Link from "next/link";
-
-**TLDR** A "factory" is a <Link to="/articles/patterns">pattern</Link> which encapsulates logic for creating new instances of classes.
+**TLDR** A "factory" is a <Link href="/articles/patterns">pattern</Link> which encapsulates logic for creating new instances of classes.
 
 ## Problem/context
 
@@ -21,7 +19,9 @@ This problem is found often in object-oriented codebases that make heavy use of 
 
 The core idea is to encapsulate the logic that determines when an object needs to be created.
 
-![](./images/factory-sequence.png)
+<figure className="flex flex-col items-center">
+![](/images/factory-sequence.png)
+</figure>
 
 **Key characteristics**
 
@@ -92,7 +92,7 @@ class BoardGame {
 }
 ```
 
-A **factory function** which creates a new <Link to="/articles/pattern-interceptor">interceptor</Link> depending on application configuration.
+A **factory function** which creates a new <Link href="/articles/pattern-interceptor">interceptor</Link> depending on application configuration.
 
 ```typescript
 // Note: several class definitions have been left out for brevity

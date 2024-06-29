@@ -7,10 +7,7 @@ lastEdit: 2021-12-28
 guid: 2afbec78-f372-4593-b6bf-bdc9409c122e
 ---
 
-import Link from "next/link";
-import SequenceDiagram from "./images/pubsub-sequence.svg"
-
-**TLDR** "Publisher" and "subscriber" form a <Link from="/articles/patterns">pattern</Link> which enables objects to communicate asynchronously.
+**TLDR** "Publisher" and "subscriber" form a <Link href="/articles/patterns">pattern</Link> which enables objects to communicate asynchronously.
 
 ## Problem/context
 
@@ -23,7 +20,9 @@ There are two roles:
 1. A **publisher** which gets triggered by a single event that needs to be distributed.
 1. One or more **subscribers** which are _registered_ with the publisher and which get notified by the publisher when it is triggered.
 
-<SequenceDiagram />
+<figure className="flex flex-col items-center">
+![](/images/pubsub-sequence.svg)
+</figure>
 
 **Key characteristics**
 

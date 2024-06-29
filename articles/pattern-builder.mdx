@@ -7,9 +7,7 @@ lastEdit: 2021-12-27
 guid: 43c3019a-2bd0-425a-aa98-7dd73de03632
 ---
 
-import Link from "next/link";
-
-**TLDR** A "builder" is a <Link to="/articles/patterns">pattern</Link> which provides a more user-friendly interface for configuring and creating an object.
+**TLDR** A "builder" is a <Link href="/articles/patterns">pattern</Link> which provides a more user-friendly interface for configuring and creating an object.
 
 ## Problem/context
 
@@ -22,7 +20,9 @@ They can also be problematic to use if you don't have all the necessary paramete
 We create a class dedicated to tracking configuration choices and that exposes an API which allows users to specify options one at a time.
 When the user is ready, they can then ask this new class to create a new instance of the object.
 
-![](./images/builder-sequence.png)
+<figure className="flex flex-col items-center">
+![](/images/builder-sequence.png)
+</figure>
 
 **Key characteristics**
 

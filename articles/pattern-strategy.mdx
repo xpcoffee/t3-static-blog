@@ -7,10 +7,6 @@ lastEdit: 2021-12-27
 guid: edc25e7e-38be-4eb4-b39a-cfa5e2df5e79
 ---
 
-import Link from "next/link";
-import SequenceDiagram from "./images/strategy-sequence.svg"
-
-**TLDR** A "strategy" is a <Link href="/articles/patterns">pattern</Link> which provides a way to define and exchange multiple implementations for processes.
 
 ## Problem/context
 
@@ -25,7 +21,9 @@ We then create a new class for each implementation we need.
 
 During runtime, based on application context, we can then determine which implementation to use e.g. using a <Link href="/articles/patterns">factory</Link> and we set the appropriate implementation for the application to use.
 
-<SequenceDiagram />
+<figure className="flex flex-col items-center">
+![](/images/strategy-sequence.svg)
+</figure>
 
 **Key characteristics**
 

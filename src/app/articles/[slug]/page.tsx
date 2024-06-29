@@ -8,6 +8,9 @@ import { Layout } from "~/app/components/Layout";
 import { getIcon } from "~/utils/fontAwesome";
 import IconParagraph from "~/app/components/IconParagraph";
 import Link from "next/link";
+import { PullQuote } from "~/app/components/Pullquote";
+import { Disclaimer } from "~/app/components/Disclaimer";
+import { PatternArticleList } from "~/app/components/PatternArticleList";
 
 type Props = {
   // there has to be a more sane way of typechecking static params.....
@@ -44,4 +47,7 @@ const components = {
   Card: Card,
   IconParagraph: IconParagraph,
   Link: Link,
+  PullQuote: PullQuote,
+  Disclaimer: Disclaimer,
+  PatternArticleList: PatternArticleList,
 };

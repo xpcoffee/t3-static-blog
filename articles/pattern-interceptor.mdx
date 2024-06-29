@@ -8,8 +8,6 @@ guid: 65752743-7d0b-4ada-abd2-79a8dc1123aa
 ---
 
 
-import Link from 'next/link";
-
 **TLDR** An "interceptor" is a <Link href="/articles/patterns">pattern</Link> which enables different operations to act in sequence on the same object.
 
 ## Problem/context
@@ -25,7 +23,9 @@ we may want to perform authentication, <Link href="/articles/load-shedding-throt
 The core idea is to have a sequence of processes. Each process is defined in a class, allowing state to be kept per-process.
 There is also a class which orchestrates the processes and handles errors/early returns from the sequence.
 
-![](./images/interceptor-sequence.png)
+<figure className="flex flex-col items-center">
+![](/images/interceptor-sequence.png)
+</figure>
 
 **Key characteristics**
 
