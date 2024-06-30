@@ -1,7 +1,6 @@
 import { getMarkdownMetadata } from "~/utils/markdownUtils";
 import { ArticleListItem } from "./components/ArticleListItem";
 import { Layout } from "./components/Layout";
-import StaticFeeds from "./components/StaticFeeds";
 
 export default async function Home() {
   const articleListItems = getMarkdownMetadata()
@@ -38,7 +37,6 @@ export default async function Home() {
       >
         {articleListItems}
       </ul>
-      <StaticFeeds />
     </Layout>
   );
 }

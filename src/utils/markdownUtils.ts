@@ -4,6 +4,7 @@ import matter from "gray-matter";
 
 const ARTICLES_DIR = "articles";
 
+// sorted by most recent first
 export function getMarkdownMetadata() {
   function getMetadataForFile(filename: string) {
     const slug = filenameToSlug(filename);
@@ -19,7 +20,10 @@ export function getMarkdownMetadata() {
   return fs
     .readdirSync(path.join(ARTICLES_DIR), { withFileTypes: true })
     .filter((file) => file.isFile())
-    .map((file) => getMetadataForFile(file.name));
+    .map((file) => getMetadataForFile(file.name))
+    .sort((a, b) => {
+      return b.date > a.date ? 1 : -1;
+    });
 }
 
 export function getMarkdownContentSlugs() {
@@ -52,7 +56,7 @@ export type FrontMatter = {
 
 function toFrontMatter(data: Record<string, unknown>): FrontMatter {
   return {
-    id: typeof data.id == "string" ? data.id : "404-id-not-found",
+    id: typeof data.guid == "string" ? data.guid : "404-id-not-found",
     title: typeof data.title == "string" ? data.title : "unknown article",
     description:
       typeof data.description == "string"

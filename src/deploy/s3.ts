@@ -9,11 +9,7 @@ import { fromIni } from "@aws-sdk/credential-provider-ini";
 import mime from "mime-types";
 import fs, { createReadStream } from "fs";
 import path from "path";
-
-const config = {
-  distFolder: "out",
-  bucketName: process.env.S3_BUCKET_NAME,
-};
+import { config } from "./config";
 
 const getS3Config = () => {
   const credentials = process.env.AWS_PROFILE
