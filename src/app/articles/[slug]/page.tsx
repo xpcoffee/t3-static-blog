@@ -7,7 +7,7 @@ import rehypeMdxCodeProps from "rehype-mdx-code-props";
 import rehypePrismPlus from "rehype-prism-plus";
 import {
   getMarkdownContentForSlug,
-  getMarkdownContentSlugs,
+  getMarkdownMetadata,
 } from "~/utils/markdownUtils";
 import Card from "~/app/components/Card";
 import { Layout } from "~/app/components/Layout";
@@ -19,6 +19,7 @@ import { PatternArticleList } from "~/app/components/PatternArticleList";
 import { ModalScale } from "~/app/components/Scale";
 import Image from "next/image";
 import IconCheckCircle from "~/app/components/IconCheckCircle";
+import ArticleRedirect from "~/app/components/ArticleRedirect";
 
 type Props = {
   // there has to be a more sane way of typechecking static params.....
@@ -27,6 +28,17 @@ type Props = {
 
 const Article = ({ params }: Props) => {
   const slug = params.slug;
+
+  // redirect permalinks to their articles
+  const permalinkedArticle = getMarkdownMetadata().find(
+    ({ id }) => slug === id,
+  );
+  if (permalinkedArticle) {
+    return (
+      <ArticleRedirect articlePath={`/articles/${permalinkedArticle.slug}`} />
+    );
+  }
+
   const article = getMarkdownContentForSlug(slug);
   const icon = getIcon(article.frontMatter?.faIcon);
   const mdxOptions = {
@@ -60,7 +72,12 @@ export default Article;
  * Tells nextjs which slugs should be rendered statically.
  */
 export const generateStaticParams = async () => {
-  return getMarkdownContentSlugs().map((slug) => ({ slug }));
+  const slugs = [];
+  for (const metadata of getMarkdownMetadata()) {
+    slugs.push({ slug: metadata.slug });
+    slugs.push({ slug: metadata.id }); // permalinks for each article; allows titles to change
+  }
+  return slugs;
 };
 
 const components = {
