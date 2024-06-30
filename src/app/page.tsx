@@ -3,22 +3,18 @@ import { ArticleListItem } from "./components/ArticleListItem";
 import { Layout } from "./components/Layout";
 
 export default async function Home() {
-  const articleListItems = getMarkdownMetadata()
-    .sort((a, b) => {
-      return b.date > a.date ? 1 : -1;
-    })
-    .map((metadata) => {
-      return (
-        <ArticleListItem
-          key={metadata.id}
-          articlePath={metadata.slug ?? "404"}
-          title={metadata.title}
-          description={metadata.description}
-          faIconName={metadata?.faIcon}
-          lastEdit={metadata?.lastEdit}
-        />
-      );
-    });
+  const articleListItems = getMarkdownMetadata().map((metadata) => {
+    return (
+      <ArticleListItem
+        key={metadata.id}
+        articlePath={metadata.slug ?? "404"}
+        title={metadata.title}
+        description={metadata.description}
+        faIconName={metadata?.faIcon}
+        lastEdit={metadata?.lastEdit}
+      />
+    );
+  });
 
   return (
     <Layout>

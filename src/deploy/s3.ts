@@ -73,8 +73,9 @@ async function collectFilesToDeploy() {
  * Enables site routes to work as expected; otherwise you need to add .html to everything
  */
 function removeHtmlSuffix(fileName: string) {
-  if (fileName.endsWith("index.html")) {
-    return fileName; // indexes work as expected
+  // root files that bucket hosting points to
+  if (fileName.endsWith("index.html") || fileName.endsWith("404.html")) {
+    return fileName;
   }
   if (fileName.endsWith(".html")) {
     return fileName.substring(0, fileName.length - ".html".length);
