@@ -60,7 +60,6 @@ export default Article;
  * Tells nextjs which slugs should be rendered statically.
  */
 export const generateStaticParams = async () => {
-  console.log(getMarkdownContentSlugs());
   return getMarkdownContentSlugs().map((slug) => ({ slug }));
 };
 
